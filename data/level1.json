@@ -1,13 +1,34 @@
 {
 	"textures": {
 		"player": {
-			"x": 30,
-			"y": 8
+			"x": 30.0,
+			"y": 8.0
+		},
+		"tree": {
+			"x": 0.0,
+			"y": 1.0
 		}
 	},
 	"tilemap": {
-		"0,0": {
+		"1,1": {
 			"texture": "player"
+		},
+		"2,2": {
+			"texture": "tree",
+			"color": "#0015f7"
+		},
+		"3,3": {
+			"texture": "tree",
+			"color": "#87d3ff"
+		},
+		"4,4": {
+			"texture": "tree",
+			"color": "#b200f2",
+			"is_explored": true,
+			"is_in_view": false
+		},
+		"5,5": {
+			"texture": "tree"
 		}
 	},
 	"player": {

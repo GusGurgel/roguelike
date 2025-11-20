@@ -1,10 +1,21 @@
 extends Node
+## Utils functions
 
-## Size of tileset in px
-var tileset_size: Vector2i = Vector2i(784, 352)
+## Checks if a dictionary has all keys
+func dictionary_has_all(dict: Dictionary, keys: Array[String]) -> bool:
+	for key in keys:
+		if not dict.has(key):
+			return false
+	
+	return true
 
-## Size of tiles in px
-var tile_size: Vector2i = Vector2i(16, 16)
+## Converts integer grid position to a global position
+func grid_position_to_global_position(grid_position: Vector2i) -> Vector2:
+	return grid_position * Globals.tile_size
 
-## Sise of tileset in tiles
-var tileset_count: Vector2i = tileset_size / tile_size
+## Converts float global position to a integer grid_position
+func global_position_to_grid_position(global_position: Vector2) -> Vector2i:
+	return Vector2(
+		global_position.x / Globals.tile_size.x,
+		global_position.y / Globals.tile_size.y
+	)
