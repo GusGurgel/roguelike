@@ -2,6 +2,8 @@ extends Operation
 class_name LevelParser
 ## Parsers a JSON into a game Level
 
+var player_scene = preload("res://scenes/player.tscn")
+
 var colored_texture: CompressedTexture2D = preload("res://images/tileset_colored.png")
 var monochrome_texture: CompressedTexture2D = preload("res://images/tileset_monochrome.png")
 var json_loader: JSONLoader = JSONLoader.new()
@@ -26,6 +28,9 @@ func load_from_path(path: String) -> void:
 
 	# Load tilemap.
 	data.tilemap = parse_tilemap(data.raw_data)
+
+	# Load player
+	data.player = parse_player(data.raw_data)
 
 
 ## Parse all textures [br][br]
@@ -102,7 +107,7 @@ func parse_tilemap(raw_data: Dictionary) -> Dictionary[String, Tile]:
 		# Set tile color
 		if tile_data.has("color"):
 			if not hex_color_regex.search(tile_data["color"]):
-				printerr("Invalid color '%s' on tile '%s'" % [tile_data["color"], tile_key])
+				printerr("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
 
 			tile.texture = data.get_texture_monochrome(tile_data["texture"])
 			tile.modulate = Color(tile_data["color"])
@@ -130,3 +135,30 @@ func parse_tile_grid_position(tile_key: String) -> Vector2i:
 		error_message = "Invalid tilemap tile_key '%s'" % tile_key
 
 	return grid_position
+
+
+func parse_player(raw_data: Dictionary) -> Player:
+	var player: Player = player_scene.instantiate()
+
+	if raw_data.has("player"):
+		var player_data = raw_data["player"]
+		if player_data.has("position"):
+			var player_position = player_data["position"]
+			if not Utils.dictionary_has_all(player_position, ["x", "y"]):
+				error = ERR_INVALID_DATA
+				error_message = "Player without a position."
+			elif not player_data.has("texture"):
+				error = ERR_INVALID_DATA
+				error_message = "Player without a texture."
+			else:
+				player.grid_position = Vector2i(player_position["x"], player_position["y"])
+				player.texture = data.get_texture(player_data["texture"])
+		else:
+			error = ERR_INVALID_DATA
+			error_message = "Player without a position."
+	else:
+		error = ERR_INVALID_DATA
+		error_message = "Level without a player"
+
+
+	return player

@@ -15,5 +15,6 @@ func _ready():
 		# print(level_parser.data.textures)
 		for key in level_parser.data.tilemap:
 			add_child(level_parser.data.tilemap[key])
+		add_child(level_parser.data.player)
 	else:
 		printerr("Parser error: %s" % level_parser.error_message)

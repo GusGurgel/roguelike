@@ -1,5 +1,52 @@
-extends Node2D
+extends Tile
 class_name Player
 
+## Max camera zoom multiplier
+@export var max_camera_zoom: int = 4
+
+@onready var camera = $Camera2D
+
+
 func _ready():
-	print(position)
+	super._ready()
+
+	camera.position += texture.get_size() / 2
+	camera.zoom = Vector2.ONE * 3
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var event_key = event as InputEventKey
+
+	if event_key:
+		if event_key.is_pressed():
+			_handle_movement(event_key)
+			_handle_camera_zoom(event_key)
+
+
+func _handle_camera_zoom(event_key: InputEventKey):
+	if event_key.is_action("zoom_plus"):
+		camera.zoom = clamp(camera.zoom + Vector2.ONE, Vector2.ONE, Vector2.ONE * max_camera_zoom)
+	elif event_key.is_action("zoom_minus"):
+		camera.zoom = clamp(camera.zoom - Vector2.ONE, Vector2.ONE, Vector2.ONE * max_camera_zoom)
+
+
+func _handle_movement(event_key: InputEventKey):
+	var move = Vector2i.ZERO
+	if event_key.is_action("player_up"):
+		move += Vector2i.UP
+	elif event_key.is_action("player_down"):
+		move += Vector2i.DOWN
+	elif event_key.is_action("player_left"):
+		move += Vector2i.LEFT
+	elif event_key.is_action("player_right"):
+		move += Vector2i.RIGHT
+	elif event_key.is_action("player_northeast"):
+		move += Vector2i.UP + Vector2i.RIGHT
+	elif event_key.is_action("player_northwest"):
+		move += Vector2i.UP + Vector2i.LEFT
+	elif event_key.is_action("player_southeast"):
+		move += Vector2i.DOWN + Vector2i.RIGHT
+	elif event_key.is_action("player_southwest"):
+		move += Vector2i.DOWN + Vector2i.LEFT
+
+	grid_position += move
