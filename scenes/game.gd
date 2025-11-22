@@ -11,11 +11,8 @@ var raw_data: Dictionary
 var player: Player
 ## Dictionary of game textures.
 var textures: Dictionary[String, AtlasTexture]
-
-## Tile container
-var tiles_node: Node2D
-## Entities container
-var entities_node: Node2D
+## Dictionary of presets of tiles
+var tiles_presets: Dictionary[String, Tile]
 
 
 ## All layers of the game
@@ -36,17 +33,20 @@ var current_layer: String:
 		add_child(layers[current_layer])
 	
 
-func _ready():
+func _ready() -> void:
+	# Add player and set game reference to the player
+	player.game = self
 	add_child(player)
 
-	var tile: Tile = tile_scene.instantiate()
-	tile.texture = get_texture("tree")
-	tile.grid_position = Vector2i(3, 3)
-	layers[current_layer].set_tile(tile)
-	layers[current_layer].erase_tile(Vector2i(2, 2))
-	print(layers[current_layer].get_tile(Vector2i(2, 2)))
-	print(layers[current_layer].get_tile(Vector2i(3, 3)))
-	layers[current_layer].erase_tile(Vector2i(1, 1))
+
+## Return tile from current layer
+func get_tile(pos: Vector2i) -> Tile:
+	return layers[current_layer].get_tile(pos)
+
+
+## Erase tile from the current layer. Return true if a tile was removed
+func erase_tile(pos: Vector2i) -> bool:
+	return layers[current_layer].erase_tile(pos)
 
 
 ## Return texture if exists, else returns "default" texture.
@@ -66,10 +66,10 @@ func get_texture_monochrome(id_texture: String) -> AtlasTexture:
 	else:
 		return textures["monochrome_default"]
 
+## Return tile preset, or null if not exists
+func get_tile_preset(id_tile_preset) -> Tile:
+	return tiles_presets.get(id_tile_preset)
 
-# func get_tile(pos: Vector2i) -> Tile:
-# 	layers[current_layer]
-	
 	
 ## Returns a JSON string representing the current Game
 ## TODO

@@ -28,6 +28,9 @@ func load_from_path(path: String) -> void:
 	# Load textures.
 	data.textures = parse_textures(data.raw_data)
 
+	# Load tiles_presets
+	data.tiles_presets = parse_tiles_presets(data.raw_data)
+
 	# Load layers.
 	data.layers = parse_layers(data.raw_data)
 
@@ -119,36 +122,55 @@ func parse_layer_tiles(tiles_data: Dictionary) -> Dictionary[String, Tile]:
 	var tiles: Dictionary[String, Tile] = {}
 
 	for tile_key in tiles_data:
-		var tile_data = tiles_data[tile_key]
-		var tile: Tile = tile_scene.instantiate()
-
-		tile.grid_position = parse_tile_grid_position(tile_key)
-
-		# Set tile position
-		if not tile_data.has("texture"):
-			warning_messages.push_back("Tile '%s' without a texture" % tile_key)
-			continue
-		tile.texture = data.get_texture(tile_data["texture"])
-
-		# Set tile color
-		if tile_data.has("color"):
-			if not hex_color_regex.search(tile_data["color"]):
-				warning_messages.push_back("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
-			tile.texture = data.get_texture_monochrome(tile_data["texture"])
-			tile.modulate = Color(tile_data["color"])
-
-		if tile_data.has("is_explored"):
-			tile.is_explored = tile_data["is_explored"]
-
-		if tile_data.has("is_in_view"):
-			tile.is_in_view = tile_data["is_in_view"]
-
-		tiles[tile_key] = tile
+		tiles[tile_key] = parse_tile(tiles_data[tile_key], tile_key)
 
 	return tiles
 
 
+func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
+	var tile: Tile = tile_scene.instantiate()
+
+	tile.grid_position = parse_tile_grid_position(tile_key)
+
+	# Set preset
+	if tile_data.has("preset"):
+		var preset: Tile = data.get_tile_preset(tile_data["preset"])
+		if not preset:
+			warning_messages.push_back("Preset '%s' not exists." % tile_data["preset"])
+		tile.preset = preset
+		return tile
+
+	# Set tile position
+	if tile_data.has("texture") and not tile.texture:
+		tile.texture = data.get_texture(tile_data["texture"])
+	else:
+		warning_messages.push_back("Tile '%s' without a texture" % tile_key)
+		tile.texture = data.get_texture("default")
+
+	# Set tile color
+	if tile_data.has("color"):
+		if not hex_color_regex.search(tile_data["color"]):
+			warning_messages.push_back("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
+		tile.texture = data.get_texture_monochrome(tile_data["texture"])
+		tile.modulate = Color(tile_data["color"])
+
+	# Set tile has_collision
+	if tile_data.has("has_collision"):
+		tile.has_collision = tile_data["has_collision"]
+
+	if tile_data.has("is_explored"):
+		tile.is_explored = tile_data["is_explored"]
+
+	if tile_data.has("is_in_view"):
+		tile.is_in_view = tile_data["is_in_view"]
+
+	return tile
+
+
 func parse_tile_grid_position(tile_key: String) -> Vector2i:
+	if tile_key == "":
+		return Vector2i.ZERO
+
 	var regex_result: RegExMatch = tile_key_regex.search(tile_key)
 	var grid_position: Vector2i
 
@@ -199,3 +221,15 @@ func parse_current_layer(raw_data: Dictionary):
 		return "default"
 
 	return raw_data["current_layer"]
+
+
+func parse_tiles_presets(raw_data: Dictionary) -> Dictionary[String, Tile]:
+	var tiles_presets: Dictionary[String, Tile]
+
+	if raw_data.has("tiles_presets"):
+		for tile_preset_key in raw_data["tiles_presets"]:
+			var tile_preset_data: Dictionary = raw_data["tiles_presets"][tile_preset_key]
+			tiles_presets[tile_preset_key] = parse_tile(tile_preset_data, "")
+
+
+	return tiles_presets

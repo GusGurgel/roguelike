@@ -19,3 +19,8 @@ func global_position_to_grid_position(global_position: Vector2) -> Vector2i:
 		global_position.x / Globals.tile_size.x,
 		global_position.y / Globals.tile_size.y
 	)
+
+
+## Print a rich warning message
+func print_warning(message: String):
+	print_rich("[color=#ffff00]⚠ Warning: %s[/color]" % message)

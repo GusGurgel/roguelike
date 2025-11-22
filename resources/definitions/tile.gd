@@ -1,14 +1,14 @@
 extends Sprite2D
 class_name Tile
 
-@export var grid_position: Vector2i = Vector2i(0, 0):
+var grid_position: Vector2i = Vector2i(0, 0):
     set(new_grid_position):
         position = Utils.grid_position_to_global_position(new_grid_position)
         grid_position = new_grid_position
 
-@export var is_explored: bool = true
+var is_explored: bool = true
 
-@export var is_in_view: bool = true:
+var is_in_view: bool = true:
     set(new_is_in_view):
         if new_is_in_view:
             is_explored = true
@@ -22,6 +22,17 @@ class_name Tile
 
         is_in_view = new_is_in_view
 
+var has_collision = false
+
+## Tile used as a base. [br][br]
+##
+## It takes this parameters into account: [i][b]texture, has_collision, modulate (color)[/b][/i].
+var preset: Tile:
+    set(new_preset):
+        preset = new_preset
+        texture = preset.texture
+        has_collision = preset.has_collision
+        modulate = preset.modulate
 
 func _ready():
     centered = false

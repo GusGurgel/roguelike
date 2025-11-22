@@ -15,12 +15,12 @@ func _ready() -> void:
 		return
 
 	for warning_message in gamer_parser.warning_messages:
-		print_rich("[color=#ffff00]⚠ Warning: %s[/color]" % warning_message)
+		Utils.print_warning("[color=#ffff00]⚠ Warning: %s[/color]" % warning_message)
 	
 	game = gamer_parser.data
 	
 	add_child(gamer_parser.data)
-	timer.timeout.connect(func(): game.current_layer = "floresta")
+	# timer.timeout.connect(func(): game.current_layer = "floresta")
 
 
 func _unhandled_input(event: InputEvent) -> void:

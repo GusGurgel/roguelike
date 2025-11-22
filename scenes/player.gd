@@ -6,12 +6,18 @@ class_name Player
 
 @onready var camera = $Camera2D
 
+## Reference to the game Scene
+var game: Game
+
 
 func _ready():
 	super._ready()
 
 	camera.position += texture.get_size() / 2
 	camera.zoom = Vector2.ONE * 3
+
+	if not game:
+		Utils.print_warning("Player won't have a reference to the current game.")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -49,4 +55,8 @@ func _handle_movement(event_key: InputEventKey):
 	elif event_key.is_action("player_southwest"):
 		move += Vector2i.DOWN + Vector2i.LEFT
 
-	grid_position += move
+	## Check for collision and change player position
+	if game:
+		var tile: Tile = game.get_tile(grid_position + move)
+		if not tile or not tile.has_collision:
+			grid_position += move
