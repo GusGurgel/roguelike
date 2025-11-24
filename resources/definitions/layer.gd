@@ -7,7 +7,13 @@ var tiles: Dictionary[String, Tile]
 
 func _ready():
 	for tile_key in tiles:
-		tiles_node.add_child(tiles[tile_key])
+		var tile: Tile = tiles[tile_key]
+
+		## Add tile or reparent to the current layer
+		if tile.get_parent():
+			tile.reparent(self)
+		else:
+			add_child(tile)
 	
 
 ## Return null if not exists
@@ -20,7 +26,11 @@ func set_tile(tile: Tile) -> void:
 
 	erase_tile(tile.grid_position)
 	tiles[pos_key] = tile
-	add_child(tile)
+	## Add tile or reparent to the current layer
+	if tile.get_parent():
+		tile.reparent(self)
+	else:
+		add_child(tile)
 
 	
 ## Return true if erased, else false

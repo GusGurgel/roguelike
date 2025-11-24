@@ -24,7 +24,8 @@
 		},
 		"brick_floor": {
 			"texture": "brick_floor",
-			"has_collision": false
+			"has_collision": false,
+			"color": "#b536ff"
 		}
 	},
 	"layers": {

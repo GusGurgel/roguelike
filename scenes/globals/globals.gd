@@ -12,3 +12,9 @@ var tileset_count: Vector2i = tileset_size / tile_size
 
 ## Default texture used as a fallback on tilemap
 var default_texture: Vector2i = Vector2i(21, 9)
+
+enum SetTileMode {
+	OVERRIDE_ALL,
+	OVERRIDE_ONLY_WITH_COLLISION,
+	OVERRIDE_ONLY_WITH_NOT_COLLISION
+}

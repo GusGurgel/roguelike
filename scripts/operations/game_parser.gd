@@ -138,12 +138,12 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 		if not preset:
 			warning_messages.push_back("Preset '%s' not exists." % tile_data["preset"])
 		tile.preset = preset
-		return tile
 
 	# Set tile position
 	if tile_data.has("texture") and not tile.texture:
 		tile.texture = data.get_texture(tile_data["texture"])
-	else:
+
+	if not tile.texture:
 		warning_messages.push_back("Tile '%s' without a texture" % tile_key)
 		tile.texture = data.get_texture("default")
 
@@ -151,7 +151,8 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 	if tile_data.has("color"):
 		if not hex_color_regex.search(tile_data["color"]):
 			warning_messages.push_back("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
-		tile.texture = data.get_texture_monochrome(tile_data["texture"])
+		if tile_data.has("texture"):
+			tile.texture = data.get_texture_monochrome(tile_data["texture"])
 		tile.modulate = Color(tile_data["color"])
 
 	# Set tile has_collision
@@ -211,6 +212,7 @@ func parse_player(raw_data: Dictionary) -> Player:
 
 	return player
 
+
 func parse_current_layer(raw_data: Dictionary):
 	if not raw_data.has("current_layer"):
 		warning_messages.push_back("Game without a current_layer.")
@@ -225,6 +227,10 @@ func parse_current_layer(raw_data: Dictionary):
 
 func parse_tiles_presets(raw_data: Dictionary) -> Dictionary[String, Tile]:
 	var tiles_presets: Dictionary[String, Tile]
+
+	## Add default tile
+	tiles_presets["default"] = tile_scene.instantiate()
+	tiles_presets["default"].texture = data.get_texture("default")
 
 	if raw_data.has("tiles_presets"):
 		for tile_preset_key in raw_data["tiles_presets"]:

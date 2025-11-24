@@ -5,6 +5,8 @@
         "floori",
         "onready",
         "printerr",
+        "randi",
+        "reparent",
         "tilemap",
         "tileset",
         "tscn"

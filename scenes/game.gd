@@ -32,11 +32,44 @@ var current_layer: String:
 			remove_child(layers[old_current_layer])
 		add_child(layers[current_layer])
 	
+@onready var tile_painter: TilePainter = $TilePainter
+
 
 func _ready() -> void:
-	# Add player and set game reference to the player
+	## Add player and set game reference to the player
 	player.game = self
 	add_child(player)
+
+
+## Set a tile by a preset [br][br]
+##
+## If preset_key == "", nothing happens
+func set_tile_by_preset(
+	preset_key: String,
+	pos: Vector2i,
+	set_tile_mode: Globals.SetTileMode = Globals.SetTileMode.OVERRIDE_ALL
+) -> void:
+	if preset_key == "":
+		return
+
+	var tile: Tile
+	if not tiles_presets.has(preset_key):
+		Utils.print_warning("Tile preset '%s' not exists." % preset_key)
+		preset_key = "default"
+
+	if set_tile_mode == Globals.SetTileMode.OVERRIDE_ONLY_WITH_COLLISION:
+		var current_tile: Tile = get_tile(pos)
+		if current_tile and not current_tile.has_collision:
+			return
+	
+	if set_tile_mode == Globals.SetTileMode.OVERRIDE_ONLY_WITH_NOT_COLLISION:
+		var current_tile: Tile = get_tile(pos)
+		if current_tile and current_tile.has_collision:
+			return
+	
+	tile = Tile.clone(tiles_presets[preset_key])
+	tile.grid_position = pos
+	layers[current_layer].set_tile(tile)
 
 
 ## Return tile from current layer

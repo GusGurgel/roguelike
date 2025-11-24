@@ -3,7 +3,6 @@ extends Node2D
 
 @onready var gamer_parser: GameParser = GameParser.new()
 @onready var game: Game
-@onready var timer: Timer = $ChangeSceneTimer
 
 
 func _ready() -> void:
@@ -19,12 +18,23 @@ func _ready() -> void:
 	
 	game = gamer_parser.data
 	
-	add_child(gamer_parser.data)
-	# timer.timeout.connect(func(): game.current_layer = "floresta")
+	add_child(game)
+
+	var rooms: Array[Rect2i] = game.tile_painter.generate_basic_dungeon(
+		Rect2i(0, 0, 100, 100),
+		10,
+		10,
+		20,
+		"brick_wall",
+		"brick_floor"
+	)
+
+	if len(rooms) > 0:
+		game.player.grid_position = rooms[0].get_center()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	var event_key = event as InputEventKey
 
 	if event_key and event_key.pressed and not event_key.echo and event_key.keycode == KEY_SPACE:
-		print("espace")
+		game.set_tile_by_preset("brick_wall", game.player.grid_position + Vector2i.UP)
