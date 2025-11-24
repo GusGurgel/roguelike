@@ -13,8 +13,8 @@
 			"y": 17
 		},
 		"brick_floor": {
-			"x": 5,
-			"y": 2
+			"x": 16,
+			"y": 0
 		}
 	},
 	"tiles_presets": {
@@ -25,48 +25,12 @@
 		"brick_floor": {
 			"texture": "brick_floor",
 			"has_collision": false,
-			"color": "#b536ff"
+			"color": "#bd5d04"
 		}
 	},
 	"layers": {
-		"floresta": {
+		"main": {
 			"tiles": {
-				"2,2": {
-					"texture": "tree",
-					"color": "#0015f7",
-					"has_collision": false
-				},
-				"3,3": {
-					"texture": "tree",
-					"color": "#87d3ff",
-					"has_collision": true
-				},
-				"4,4": {
-					"texture": "tree",
-					"color": "#b200f2",
-					"has_collision": true
-				},
-				"5,5": {
-					"texture": "tree",
-					"has_collision": true
-				}
-			}
-		},
-		"xilito": {
-			"tiles": {
-				"2,2": {
-					"texture": "player",
-					"color": "#0015f7"
-				},
-				"3,3": {
-					"preset": "brick_wall"
-				},
-				"3,4": {
-					"preset": "brick_wall"
-				},
-				"3,5": {
-					"preset": "brick_floor"
-				}
 			}
 		}
 	},
@@ -75,7 +39,8 @@
 		"position": {
 			"x": 1.0,
 			"y": 1.0
-		}
+		},
+		"color": "#fff"
 	},
-	"current_layer": "xilito"
+	"current_layer": "main"
 }

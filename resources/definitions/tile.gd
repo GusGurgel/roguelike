@@ -9,7 +9,11 @@ var grid_position: Vector2i = Vector2i(0, 0):
 		position = Utils.grid_position_to_global_position(new_grid_position)
 		grid_position = new_grid_position
 
-var is_explored: bool = true
+var is_explored: bool = false:
+	set(new_is_explored):
+		is_explored = new_is_explored
+		if is_explored and not visible:
+			visible = true
 
 var is_in_view: bool = true:
 	set(new_is_in_view):

@@ -32,6 +32,8 @@ func _ready() -> void:
 	if len(rooms) > 0:
 		game.player.grid_position = rooms[0].get_center()
 
+	# $CanvasLayer/TextureRect.texture = game.get_texture_monochrome("brick_floor")
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	var event_key = event as InputEventKey

@@ -9,6 +9,9 @@ class_name Player
 ## Reference to the game Scene
 var game: Game
 
+## Reference to the field of view Node
+var field_of_view: FieldOfView
+
 
 func _ready():
 	super._ready()

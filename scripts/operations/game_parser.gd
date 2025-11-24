@@ -2,7 +2,7 @@ extends Operation
 class_name GameParser
 ## Parsers a JSON into a playable game.
 
-var data: Game = preload("res://scenes/game.tscn").instantiate()
+var data: Game = preload("res://scenes/game/game.tscn").instantiate()
 
 var player_scene = preload("res://scenes/player.tscn")
 var layer_scene = preload("res://scenes/layer.tscn")
@@ -86,7 +86,7 @@ func parse_textures(raw_data: Dictionary) -> Dictionary[String, AtlasTexture]:
 		texture_monochrome.region = texture_colored.region
 
 		textures[key] = texture_colored
-		textures["monochrome_%s" % key] = texture_colored
+		textures["monochrome_%s" % key] = texture_monochrome
 
 	return textures
 
@@ -139,7 +139,6 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 			warning_messages.push_back("Preset '%s' not exists." % tile_data["preset"])
 		tile.preset = preset
 
-	# Set tile position
 	if tile_data.has("texture") and not tile.texture:
 		tile.texture = data.get_texture(tile_data["texture"])
 
@@ -152,6 +151,7 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 		if not hex_color_regex.search(tile_data["color"]):
 			warning_messages.push_back("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
 		if tile_data.has("texture"):
+			print(tile_data["texture"])
 			tile.texture = data.get_texture_monochrome(tile_data["texture"])
 		tile.modulate = Color(tile_data["color"])
 
@@ -209,6 +209,12 @@ func parse_player(raw_data: Dictionary) -> Player:
 
 	player.grid_position = Vector2i(player_position["x"], player_position["y"])
 	player.texture = data.get_texture(player_data["texture"])
+	if player_data.has("color"):
+		player.texture = data.get_texture_monochrome(player_data["texture"])
+		if not hex_color_regex.search(player_data["color"]):
+			warning_messages.push_back("Invalid color hex '%s' on player" % player_data["color"])
+		player.modulate = Color(player_data["color"])
+
 
 	return player
 

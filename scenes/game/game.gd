@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name Game
 ## Represents a parsed playable game. This contains everything the game needs to
 ## run.
@@ -36,8 +36,9 @@ var current_layer: String:
 
 
 func _ready() -> void:
-	## Add player and set game reference to the player
+	## Set reference to game
 	player.game = self
+	## Add player
 	add_child(player)
 
 

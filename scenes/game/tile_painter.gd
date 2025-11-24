@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name TilePainter
 ## Used to paint forms like circles, rects, lines on the game tile layer
 
