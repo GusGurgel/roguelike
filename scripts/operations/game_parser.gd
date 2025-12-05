@@ -2,9 +2,9 @@ extends Operation
 class_name GameParser
 ## Parsers a JSON into a playable game.
 
-var data: Game = preload("res://scenes/game_parser/game.tscn").instantiate()
+var data: Game = preload("res://scenes/game/game.tscn").instantiate()
 
-var player_scene = preload("res://scenes/player.tscn")
+var player_scene = preload("res://scenes/entities/player.tscn")
 var layer_scene = preload("res://scenes/layer.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 
@@ -138,6 +138,7 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 		if not preset:
 			warning_messages.push_back("Preset '%s' not exists." % tile_data["preset"])
 		tile.preset = preset
+		tile.preset_key = tile_data["preset"]
 
 	if tile_data.has("texture") and not tile.texture:
 		tile.texture = data.get_texture(tile_data["texture"])
@@ -151,7 +152,6 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 		if not hex_color_regex.search(tile_data["color"]):
 			warning_messages.push_back("Invalid color hex '%s' on tile '%s'" % [tile_data["color"], tile_key])
 		if tile_data.has("texture"):
-			print(tile_data["texture"])
 			tile.texture = data.get_texture_monochrome(tile_data["texture"])
 		tile.modulate = Color(tile_data["color"])
 
@@ -162,9 +162,14 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 
 	if tile_data.has("is_explored"):
 		tile.is_explored = tile_data["is_explored"]
+	else:
+		tile.is_explored = false
 
 	if tile_data.has("is_in_view"):
 		tile.is_in_view = tile_data["is_in_view"]
+	else :
+		tile.is_in_view = false
+
 
 	return tile
 
@@ -206,13 +211,15 @@ func parse_player(raw_data: Dictionary) -> Player:
 
 	player.grid_position = Vector2i(player_position["x"], player_position["y"])
 
-	if not player_data.has("tile"):
-		warning_messages.push_back("Player without a tile.")
+	if not player_data.has("tile") or not player_data["tile"].has("preset"):
+		warning_messages.push_back("Player without a tile preset.")
 		return player
 
 	var player_tile = parse_tile(player_data["tile"], "%d,%d" % [player.grid_position.x, player.grid_position.y])
 
 	player.preset = player_tile
+	player.preset_key = player_data["tile"]["preset"]
+	player.is_in_view = true
 
 	# player.
 	

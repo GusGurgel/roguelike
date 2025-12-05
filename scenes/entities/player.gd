@@ -19,7 +19,7 @@ func _ready():
 	is_transparent = true
 
 	camera.position += texture.get_size() / 2
-	camera.zoom = Vector2.ONE * 3
+	camera.zoom = Vector2.ONE * 2
 
 	if not game:
 		Utils.print_warning("Player won't have a reference to the current game.")
@@ -70,3 +70,15 @@ func _handle_movement(event_key: InputEventKey):
 		if not tile or not tile.has_collision:
 			grid_position += move
 			field_of_view.update_fov(grid_position)
+
+
+func get_as_dict() -> Dictionary:
+	return {
+		position = {
+			x = self.grid_position.x,
+			y = self.grid_position.y
+		},
+		tile = {
+			preset = self.preset_key
+		}
+	}

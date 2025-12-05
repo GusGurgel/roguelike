@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bi8pdx3abslq1"]
 
-[ext_resource type="Script" uid="uid://dbf2bjtjban1g" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://dbf2bjtjban1g" path="res://scenes/entities/player.gd" id="1_3vyb7"]
 
 [node name="Player" type="Sprite2D"]
 z_index = 1

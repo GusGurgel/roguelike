@@ -46,3 +46,12 @@ func erase_tile(pos: Vector2i) -> bool:
 
 func vector2i_to_string_key(pos: Vector2i) -> String:
 	return "%s,%s" % [pos.x, pos.y]
+
+
+func get_tiles_as_dict() -> Dictionary:
+	var result: Dictionary = {}
+
+	for tile_key in self.tiles:
+		result[tile_key] = self.tiles[tile_key].get_as_dict()
+
+	return result

@@ -70,7 +70,9 @@ func set_tile_by_preset(
 		if current_tile and current_tile.has_collision:
 			return
 	
-	tile = Tile.clone(tiles_presets[preset_key])
+	tile = tile_scene.instantiate()
+	tile.preset = tiles_presets[preset_key]
+	tile.preset_key = preset_key
 	tile.grid_position = pos
 	layers[current_layer].set_tile(tile)
 
@@ -109,5 +111,13 @@ func get_tile_preset(id_tile_preset) -> Tile:
 	
 ## Returns a JSON string representing the current Game
 ## TODO
-func stringify() -> String:
-	return ""
+func get_as_dict() -> Dictionary:
+	var result: Dictionary = self.raw_data
+
+	## Get current layer tiles
+	for layer_key in self.raw_data["layers"]:
+		result["layers"][layer_key]["tiles"] = self.layers[layer_key].get_tiles_as_dict()
+	
+	result["player"] = player.get_as_dict()
+
+	return result

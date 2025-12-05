@@ -11,13 +11,12 @@ game_viewport = NodePath("Interface/FirstRow/GameViewportContainer/GameViewport"
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="FirstRow" type="HBoxContainer" parent="Interface"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="GameViewportContainer" type="SubViewportContainer" parent="Interface/FirstRow"]
 texture_filter = 1
@@ -36,6 +35,7 @@ texture = ExtResource("2_0wfyh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Interface"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Down" type="TextureRect" parent="Interface/HBoxContainer"]
 layout_mode = 2
