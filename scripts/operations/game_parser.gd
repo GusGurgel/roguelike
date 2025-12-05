@@ -2,7 +2,7 @@ extends Operation
 class_name GameParser
 ## Parsers a JSON into a playable game.
 
-var data: Game = preload("res://scenes/game/game.tscn").instantiate()
+var data: Game = preload("res://scenes/game_parser/game.tscn").instantiate()
 
 var player_scene = preload("res://scenes/player.tscn")
 var layer_scene = preload("res://scenes/layer.tscn")
@@ -203,18 +203,29 @@ func parse_player(raw_data: Dictionary) -> Player:
 	if not Utils.dictionary_has_all(player_position, ["x", "y"]):
 		warning_messages.push_back("Player without a position.")
 		return player
-	
-	if not player_data.has("texture"):
-		warning_messages.push_back("Player without a texture.")
-		return player
 
 	player.grid_position = Vector2i(player_position["x"], player_position["y"])
-	player.texture = data.get_texture(player_data["texture"])
-	if player_data.has("color"):
-		player.texture = data.get_texture_monochrome(player_data["texture"])
-		if not hex_color_regex.search(player_data["color"]):
-			warning_messages.push_back("Invalid color hex '%s' on player" % player_data["color"])
-		player.modulate = Color(player_data["color"])
+
+	if not player_data.has("tile"):
+		warning_messages.push_back("Player without a tile.")
+		return player
+
+	var player_tile = parse_tile(player_data["tile"], "%d,%d" % [player.grid_position.x, player.grid_position.y])
+
+	player.preset = player_tile
+
+	# player.
+	
+	# if not player_data.has("texture"):
+	# 	warning_messages.push_back("Player without a texture.")
+	# 	return player
+
+	# player.texture = data.get_texture(player_data["texture"])
+	# if player_data.has("color"):
+	# 	player.texture = data.get_texture_monochrome(player_data["texture"])
+	# 	if not hex_color_regex.search(player_data["color"]):
+	# 		warning_messages.push_back("Invalid color hex '%s' on player" % player_data["color"])
+	# 	player.modulate = Color(player_data["color"])
 
 
 	return player
