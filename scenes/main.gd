@@ -15,25 +15,11 @@ func _ready() -> void:
 		return
 
 	for warning_message in gamer_parser.warning_messages:
-		Utils.print_warning("[color=#ffff00]⚠ Warning: %s[/color]" % warning_message)
+		Utils.print_warning(warning_message)
 	
 	game = gamer_parser.data
 	
 	game_viewport.add_child(game)
-
-	# init_field_of_view()
-
-	# var rooms: Array[Rect2i] = game.tile_painter.generate_basic_dungeon(
-	# 	Rect2i(0, 0, 100, 100),
-	# 	10,
-	# 	10,
-	# 	20,
-	# 	"brick_wall",
-	# 	"brick_floor"
-	# )
-
-	# if len(rooms) > 0:
-	# 	game.player.grid_position = rooms[0].get_center()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -45,8 +31,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _notification(what: int):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		pass
 		# save_game()
+		pass
 
 
 func save_game() -> void:
@@ -56,8 +42,15 @@ func save_game() -> void:
 		print("JSON saver errors: " + str(json_saver.error_messages))
 
 
-func init_field_of_view() -> void:
-	var field_of_view: FieldOfView = game.get_node("FieldOfView") as FieldOfView
+func generate_dungeon() -> void:
+	var rooms: Array[Rect2i] = game.tile_painter.generate_basic_dungeon(
+		Rect2i(0, 0, 100, 100),
+		10,
+		10,
+		20,
+		"brick_wall",
+		"brick_floor"
+	)
 
-	if field_of_view:
-		field_of_view.update_fov(game.player.grid_position)
+	if len(rooms) > 0:
+		game.player.grid_position = rooms[0].get_center()
