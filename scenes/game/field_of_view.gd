@@ -26,7 +26,8 @@ const OCTANT_TRANSFORMS = [
 func update_fov(origin: Vector2i):
 	# 1. Resetar tiles visíveis do frame anterior
 	for tile in _visible_tiles:
-		tile.is_in_view = false
+		if tile:
+			tile.is_in_view = false
 	_visible_tiles.clear()
 
 	# 2. O tile onde o jogador está é sempre visível

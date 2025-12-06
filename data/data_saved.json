@@ -2,6 +2,13 @@
 	"current_layer": "main",
 	"layers": {
 		"main": {
+			"entities": {
+				"73,75": {
+					"tile": {
+						"preset": "orc"
+					}
+				}
+			},
 			"tiles": {
 				"10,39": {
 					"is_explored": false,
@@ -5993,7 +6000,7 @@
 				},
 				"67,76": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"67,77": {
 					"is_explored": true,
@@ -7329,7 +7336,7 @@
 				},
 				"74,77": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"74,78": {
 					"is_explored": true,
@@ -7477,19 +7484,19 @@
 				},
 				"75,77": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"75,78": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"75,79": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"75,80": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"75,81": {
 					"is_explored": true,
@@ -7625,7 +7632,7 @@
 				},
 				"76,77": {
 					"is_explored": true,
-					"preset": "brick_floor"
+					"preset": "brick_wall"
 				},
 				"76,78": {
 					"is_explored": true,
@@ -10104,8 +10111,8 @@
 	},
 	"player": {
 		"position": {
-			"x": 72,
-			"y": 77
+			"x": 71,
+			"y": 78
 		},
 		"tile": {
 			"preset": "warrior"
@@ -10120,6 +10127,10 @@
 			"x": 10.0,
 			"y": 17.0
 		},
+		"orc": {
+			"x": 26.0,
+			"y": 3.0
+		},
 		"tree": {
 			"x": 0.0,
 			"y": 1.0
@@ -10131,19 +10142,24 @@
 	},
 	"tiles_presets": {
 		"brick_floor": {
-			"color": "#3a3457",
+			"color": "#bd5d04",
 			"has_collision": false,
 			"is_transparent": true,
 			"texture": "brick_floor"
 		},
 		"brick_wall": {
-			"color": "#6b2d00",
 			"has_collision": true,
 			"is_transparent": false,
 			"texture": "brick_wall"
 		},
+		"orc": {
+			"has_collision": true,
+			"is_transparent": true,
+			"texture": "orc"
+		},
 		"warrior": {
-			"has_collision": false,
+			"color": "#f2f2f2",
+			"has_collision": true,
 			"is_transparent": true,
 			"texture": "warrior"
 		}

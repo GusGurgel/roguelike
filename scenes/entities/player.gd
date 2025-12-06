@@ -1,4 +1,4 @@
-extends Tile
+extends Entity
 class_name Player
 
 ## Max camera zoom multiplier
@@ -15,6 +15,8 @@ var field_of_view: FieldOfView
 
 func _ready():
 	super._ready()
+	entity_name = "player"
+
 	## Player need to be transparent
 	is_transparent = true
 

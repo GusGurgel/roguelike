@@ -167,7 +167,7 @@ func parse_tile(tile_data: Dictionary, tile_key: String) -> Tile:
 
 	if tile_data.has("is_in_view"):
 		tile.is_in_view = tile_data["is_in_view"]
-	else :
+	else:
 		tile.is_in_view = false
 
 
@@ -221,20 +221,6 @@ func parse_player(raw_data: Dictionary) -> Player:
 	player.preset_key = player_data["tile"]["preset"]
 	player.is_in_view = true
 
-	# player.
-	
-	# if not player_data.has("texture"):
-	# 	warning_messages.push_back("Player without a texture.")
-	# 	return player
-
-	# player.texture = data.get_texture(player_data["texture"])
-	# if player_data.has("color"):
-	# 	player.texture = data.get_texture_monochrome(player_data["texture"])
-	# 	if not hex_color_regex.search(player_data["color"]):
-	# 		warning_messages.push_back("Invalid color hex '%s' on player" % player_data["color"])
-	# 	player.modulate = Color(player_data["color"])
-
-
 	return player
 
 
@@ -264,3 +250,8 @@ func parse_tiles_presets(raw_data: Dictionary) -> Dictionary[String, Tile]:
 
 
 	return tiles_presets
+
+
+## Alters entity values to the parsed structure
+# func parse_entity(raw_data: Dictionary, entity: Entity) -> void:
+# 	entity.
