@@ -32,9 +32,18 @@ class_name Entity
 
 @export var base_damage: int = 0
 
+@export var turns_to_move: int = 1
+
+## Reference to the entity layer
+@export var layer: Layer = null
+
 
 func _ready() -> void:
 	super._ready()
+
+	# This prevents the player to see moving explored entities
+	if not is_in_view:
+		visible = false
 
 
 func get_as_dict(_return_grid_position: bool = true) -> Dictionary:
@@ -46,7 +55,7 @@ func get_as_dict(_return_grid_position: bool = true) -> Dictionary:
 
 ## Callback called when the enters the field of view of the player.
 func _on_field_of_view_enter() -> void:
-	pass
+	grid_position = grid_position
 
 
 ## Callback called when the entity exits the field of view of the player.
@@ -78,3 +87,15 @@ func get_damage() -> int:
 ## Basic kill function. Just remove the node from the scene.
 func kill() -> void:
 	queue_free()
+
+
+## Move the entity avoiding
+func move_to(pos: Vector2i) -> void:
+	var grid_position_string: String = Utils.vector2i_to_string(self.grid_position)
+	var pos_string: String = Utils.vector2i_to_string(pos)
+
+	if layer.can_move_to_position(pos) \
+	and layer.entities.get(pos_string) == null:
+		layer.entities.erase(grid_position_string)
+		layer.entities.set(pos_string, self)
+		self.grid_position = pos

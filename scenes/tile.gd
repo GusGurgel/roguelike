@@ -1,11 +1,15 @@
 extends Sprite2D
 class_name Tile
 
+signal tile_grid_position_change(old_pos: Vector2i, new_pos: Vector2i)
+
 
 var grid_position: Vector2i = Vector2i(0, 0):
 	set(new_grid_position):
+		var old_grid_position: Vector2i = grid_position
 		position = Utils.grid_position_to_global_position(new_grid_position)
 		grid_position = new_grid_position
+		tile_grid_position_change.emit(old_grid_position, grid_position)
 
 
 var is_explored: bool = false:

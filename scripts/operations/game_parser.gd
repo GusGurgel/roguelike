@@ -17,7 +17,7 @@ var colored_texture: CompressedTexture2D = preload("res://images/tileset_colored
 var monochrome_texture: CompressedTexture2D = preload("res://images/tileset_monochrome.png")
 var json_loader: JSONLoader = JSONLoader.new()
 
-var tile_key_regex: RegEx = RegEx.create_from_string("^-?(\\d+),-?(\\d+)$")
+var tile_key_regex: RegEx = RegEx.create_from_string("^(-?\\d+),(-?\\d+)$")
 var hex_color_regex: RegEx = RegEx.create_from_string("^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
 
 
@@ -129,7 +129,7 @@ func parse_layer(layer_key: String, layers_data: Dictionary) -> Layer:
 		layer.tiles = parse_layer_tiles(layer_data["tiles"])
 	
 	if layer_data.has("entities"):
-		layer.entities = parse_layer_entities(layer_data["entities"])
+		layer.entities = parse_layer_entities(layer_data["entities"], layer)
 
 	return layer
 
@@ -150,7 +150,7 @@ func parse_layer_tiles(tiles_data: Dictionary) -> Dictionary[String, Tile]:
 	return tiles
 
 
-func parse_layer_entities(entities_data: Dictionary) -> Dictionary[String, Entity]:
+func parse_layer_entities(entities_data: Dictionary, layer: Layer) -> Dictionary[String, Entity]:
 	var entities: Dictionary[String, Entity] = {}
 
 	for entity_key in entities_data:
@@ -178,6 +178,7 @@ func parse_layer_entities(entities_data: Dictionary) -> Dictionary[String, Entit
 				y = grid_position.y
 			}
 			parse_entity(entity_data, node_entity)
+			node_entity.layer = layer
 			entities[entity_key] = node_entity
 
 	return entities
@@ -251,6 +252,12 @@ func parse_player(raw_data: Dictionary) -> Player:
 	parse_entity(player_data["entity"], player as Entity)
 	player.is_in_view = true
 
+	Utils.copy_from_dict_if_exists(
+		player,
+		player_data,
+		["heal_per_turns"],
+		["heal_per_turns"]
+	)
 
 	return player
 
@@ -270,7 +277,8 @@ func parse_entity(entity_data: Dictionary, entity: Entity) -> void:
 			"health",
 			"max_mana",
 			"mana",
-			"base_damage"
+			"base_damage",
+			"turns_to_move"
 		]
 	)
 

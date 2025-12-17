@@ -1,6 +1,11 @@
 extends Node
 ## Utils functions
 
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+func _ready():
+	rng.randomize()
+
 ## Checks if a dictionary has all keys
 func dictionary_has_all(dict: Dictionary, keys: Array[String]) -> bool:
 	for key in keys:
@@ -75,3 +80,12 @@ func is_border(rect: Rect2i, pos: Vector2i) -> bool:
 		|| pos.x == rect.position.x + rect.size.x - 1
 		|| pos.y == rect.position.y + rect.size.y - 1
 	)
+
+## Return a random Vector2i direction
+func get_random_direction() -> Vector2i:
+	return Vector2i(rng.randi_range(-1, 1), rng.randi_range(-1, 1))
+
+
+## Serialize a Vector2i
+func vector2i_to_string(pos: Vector2i) -> String:
+	return "%s,%s" % [pos.x, pos.y]

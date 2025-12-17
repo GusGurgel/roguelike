@@ -3,14 +3,6 @@
 	"layers": {
 		"main": {
 			"tiles": {
-				"0,-1": {
-					"is_explored": true,
-					"preset": "brick_wall"
-				},
-				"1,-1": {
-					"is_explored": true,
-					"preset": "brick_wall"
-				},
 				"10,39": {
 					"is_explored": true,
 					"preset": "brick_wall"
@@ -10109,7 +10101,7 @@
 				}
 			},
 			"entities": {
-				"72,82": {
+				"49,76": {
 					"type": "Enemy",
 					"base_damage": 5,
 					"entity_name": "Orc",
@@ -10122,7 +10114,8 @@
 						"is_explored": true,
 						"preset": "orc",
 						"is_in_view": true
-					}
+					},
+					"turns_to_move": 1
 				}
 			}
 		}
@@ -10135,6 +10128,7 @@
 			"mana": 10,
 			"base_damage": 10,
 			"entity_name": "Silver Warrior",
+			"turns_to_move": 1,
 			"tile": {
 				"grid_position": {
 					"x": 72,
@@ -10143,7 +10137,8 @@
 				"is_explored": true,
 				"preset": "warrior"
 			}
-		}
+		},
+		"heal_per_turns": 1
 	},
 	"textures": {
 		"brick_floor": {
@@ -10170,6 +10165,16 @@
 	"tiles_presets": {
 		"brick_floor": {
 			"color": "#bd5d04",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_transparent": true,
+			"texture": "brick_floor"
+		},
+		"marker": {
+			"color": "#ff3c00",
 			"grid_position": {
 				"x": 0,
 				"y": 0

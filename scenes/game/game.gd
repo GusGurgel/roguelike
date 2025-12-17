@@ -3,6 +3,8 @@ class_name Game
 ## Represents a parsed playable game. This contains everything the game needs to
 ## run.
 
+@export var field_of_view: FieldOfView
+
 var layer_scene = preload("res://scenes/layer.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 
@@ -55,10 +57,13 @@ var current_layer: String:
 func _ready() -> void:
 	## Set reference to game on player and field_of_view.
 	player.game = self
-	$FieldOfView.game = self
+	field_of_view.game = self
 
 	## Add player
 	add_child(player)
+	game_ui.debug_ui.player = player
+	player.tile_grid_position_change.connect(game_ui.debug_ui._on_player_change_grid_position)
+	player.grid_position = player.grid_position
 
 
 ## Set a tile by a preset. [br]
@@ -72,7 +77,7 @@ func set_tile_by_preset(
 		return
 
 	var tile: Tile
-	if get_tile_preset(preset):
+	if get_tile_preset(preset) == null:
 		Utils.print_warning("Tile preset '%s' not exists." % preset)
 		preset = "default"
 

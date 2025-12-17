@@ -8,7 +8,7 @@ extends CanvasLayer
 
 
 func _ready() -> void:
-	gamer_parser.load_from_path("res://data/game3.json", game_ui)
+	gamer_parser.load_from_path("res://data/game.json", game_ui)
 
 	if gamer_parser.has_erros():
 		for error_message in gamer_parser.error_messages:
@@ -21,6 +21,7 @@ func _ready() -> void:
 	game = gamer_parser.data
 	
 	game_viewport.add_child(game)
+	Globals.game = game
 
 
 func _unhandled_input(event: InputEvent) -> void:

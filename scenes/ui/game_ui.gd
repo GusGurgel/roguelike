@@ -10,6 +10,8 @@ class_name GameUI
 @export var mana_progress_bar: ProgressBar
 @export var mana_label: Label
 
+@onready var debug_ui: DebugUI = $Debug
+
 func _ready():
 	clear_prompt()
 

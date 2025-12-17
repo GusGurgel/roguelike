@@ -4,6 +4,8 @@ class_name Player
 ## Max camera zoom multiplier
 @export var max_camera_zoom: int = 4
 
+@export var heal_per_turns: int = 1
+
 @onready var camera = $Camera2D
 
 ## Reference to the game Scene
@@ -27,7 +29,7 @@ func _ready():
 		return
 
 	field_of_view = game.get_node("FieldOfView")
-	field_of_view.update_fov(grid_position)
+	update_fov.call_deferred()
 
 	# Call set methods to trigger UI update
 	set_health(health)
@@ -43,6 +45,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event_key.is_pressed():
 			_handle_movement(event_key)
 			_handle_camera_zoom(event_key)
+			if event_key.is_action("wait"):
+				if game:
+					pass_turns(1)
 
 
 func _handle_camera_zoom(event_key: InputEventKey):
@@ -72,16 +77,16 @@ func _handle_movement(event_key: InputEventKey):
 		move += Vector2i.DOWN + Vector2i.LEFT
 
 	## Check for collision and change player position
-	if game:
-		var tiles: Array[Tile] = game.get_tiles(grid_position + move)
-		if not Utils.any_of_array_has_propriety_with_value(tiles, "has_collision", true):
+	if game and move != Vector2i.ZERO:
+		if game.get_current_layer().can_move_to_position(grid_position + move):
 			grid_position += move
-			field_of_view.update_fov(grid_position)
-			game.turn += 1
+			update_fov.call_deferred()
+			pass_turns(turns_to_move)
 		else:
-			for tile in tiles:
+			for tile in game.get_current_layer().get_tiles(grid_position + move):
 				var enemy: Enemy = tile as Enemy
 				if enemy:
+					pass_turns(turns_to_move)
 					var is_enemy_dead: bool = enemy.get_hit(self, get_damage())
 					if is_enemy_dead:
 						game.game_ui.prompt_text(
@@ -98,6 +103,17 @@ func _handle_movement(event_key: InputEventKey):
 								enemy.health
 							]
 						)
+
+## Update fov using player position
+func update_fov() -> void:
+	if field_of_view:
+		field_of_view.update_fov(grid_position)
+
+
+## Pass turns and heal player
+func pass_turns(turns_count: int) -> void:
+	game.turn += turns_count
+	set_health(health + heal_per_turns * turns_count)
 
 
 func get_hit(entity: Entity, damage: int) -> bool:

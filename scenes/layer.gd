@@ -5,38 +5,61 @@ class_name Layer
 var tiles: Dictionary[String, Tile]
 var entities: Dictionary[String, Entity]
 
-
+var astar_grid = AStarGrid2D.new()
 
 @onready var tiles_child = $Tiles
 @onready var entities_child = $Entities
 
+var top_left: Vector2i:
+	set(value):
+		top_left = value
+		_update_astar_region()
 
-func _ready():
-	## Add tiles
-	for tile_key in tiles:
-		var tile: Tile = tiles[tile_key]
+var bottom_right: Vector2i:
+	set(value):
+		bottom_right = value
+		_update_astar_region()
 
+func _ready() -> void:
+	var first_pos: Vector2i = tiles.values()[0].grid_position
+	
+	var temp_top_left = first_pos
+	var temp_bottom_right = first_pos
+
+	# Add tiles.
+	for tile: Tile in tiles.values():
 		if tile.get_parent():
 			tile.reparent(tiles_child)
 		else:
 			tiles_child.add_child(tile)
+		
+		temp_top_left = temp_top_left.min(tile.grid_position)
+		temp_bottom_right = temp_bottom_right.max(tile.grid_position)
 
-	## Add entities
-	for entity_key in entities:
-		var entity: Entity = entities[entity_key]
+	# Update astar region
+	top_left = temp_top_left
+	bottom_right = temp_bottom_right
 
+	# Set solid on astar_grid
+	for tile: Tile in tiles.values():
+		astar_grid.set_point_solid(tile.grid_position, tile.has_collision)
+		
+	# Add entities.
+	for entity: Entity in entities.values():
 		if entity.get_parent():
 			entity.reparent(entities_child)
 		else:
 			entities_child.add_child(entity)
+
+	print(astar_grid.region)
 	
 
 ## Return all tiles of a grid_position. Including basic tiles and entity tiles
 func get_tiles(pos: Vector2i) -> Array[Tile]:
 	var tiles_arr: Array[Tile] = []
 
-	var tile: Variant = tiles.get(vector2i_to_string_key(pos))
-	var entity: Variant = entities.get(vector2i_to_string_key(pos))
+	var tile: Variant = tiles.get(Utils.vector2i_to_string(pos))
+	var entity: Variant = entities.get(Utils.vector2i_to_string(pos))
 
 
 	if tile != null and is_instance_valid(tile):
@@ -53,7 +76,7 @@ func get_tiles(pos: Vector2i) -> Array[Tile]:
 	return tiles_arr
 
 func set_tile(tile: Tile) -> void:
-	var pos_key: String = vector2i_to_string_key(tile.grid_position)
+	var pos_key: String = Utils.vector2i_to_string(tile.grid_position)
 
 	erase_tile(tile.grid_position)
 	tiles[pos_key] = tile
@@ -66,7 +89,7 @@ func set_tile(tile: Tile) -> void:
 	
 ## Return true if erased, else false
 func erase_tile(pos: Vector2i) -> bool:
-	var pos_key: String = vector2i_to_string_key(pos)
+	var pos_key: String = Utils.vector2i_to_string(pos)
 
 	if tiles.has(pos_key):
 		tiles[pos_key].queue_free()
@@ -75,8 +98,12 @@ func erase_tile(pos: Vector2i) -> bool:
 	return false
 
 
-func vector2i_to_string_key(pos: Vector2i) -> String:
-	return "%s,%s" % [pos.x, pos.y]
+func _update_astar_region() -> void:
+	var size = (bottom_right - top_left).abs() + Vector2i.ONE
+	
+	astar_grid.region = Rect2i(top_left, size)
+	
+	astar_grid.update()
 
 
 func get_tiles_as_dict() -> Dictionary:
@@ -86,3 +113,9 @@ func get_tiles_as_dict() -> Dictionary:
 		result[tile_key] = self.tiles[tile_key].get_as_dict()
 
 	return result
+
+
+## Return if it's possible to move to pos
+func can_move_to_position(pos: Vector2i) -> bool:
+	var pos_tiles: Array[Tile] = get_tiles(pos)
+	return not Utils.any_of_array_has_propriety_with_value(pos_tiles, "has_collision", true)

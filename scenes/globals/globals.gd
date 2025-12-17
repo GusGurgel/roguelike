@@ -18,3 +18,5 @@ enum SetTileMode {
 	OVERRIDE_ONLY_WITH_COLLISION,
 	OVERRIDE_ONLY_WITH_NOT_COLLISION
 }
+
+var game: Game = null

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwtdbxpqslxmb"]
+[gd_scene load_steps=9 format=3 uid="uid://bwtdbxpqslxmb"]
 
 [ext_resource type="Script" uid="uid://hdlm0wo67drn" path="res://scenes/ui/game_ui.gd" id="1_gwk6t"]
+[ext_resource type="PackedScene" uid="uid://cfeg45rhlroly" path="res://scenes/ui/debug_ui.tscn" id="2_xjfbv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sugp2"]
 bg_color = Color(0.12225222, 0.12225225, 0.12225217, 1)
@@ -224,7 +225,6 @@ text = "1
 "
 scroll_following = true
 
-[node name="Debug" type="Control" parent="."]
+[node name="Debug" parent="." instance=ExtResource("2_xjfbv")]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 1
