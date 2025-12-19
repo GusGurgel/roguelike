@@ -33,7 +33,11 @@ func load_from_path(path: String, game_ui: GameUI) -> void:
 		error_messages.append_array(json_loader.error_messages)
 		return
 	
-	data.raw_data = json_loader.data
+	load_from_dict(json_loader.data, game_ui)
+
+
+func load_from_dict(dict: Dictionary, game_ui: GameUI) -> void:
+	data.raw_data = dict
 
 	data.game_ui = game_ui
 	
@@ -238,6 +242,7 @@ func parse_layer_itens(itens_data: Dictionary) -> Dictionary[String, Item]:
 
 	return itens
 
+
 func parse_item(item_data: Dictionary, item: Item) -> void:
 	parse_tile(item_data["tile"], item as Tile)
 
@@ -251,6 +256,7 @@ func parse_item(item_data: Dictionary, item: Item) -> void:
 			"description"
 		]
 	)
+
 
 ## Change tile object to the parsed data.
 func parse_tile(tile_data: Dictionary, tile: Tile) -> void:
@@ -333,6 +339,7 @@ func parse_player(raw_data: Dictionary) -> Player:
 	)
 
 	return player
+
 
 func parse_entity(entity_data: Dictionary, entity: Entity) -> void:
 	if not entity_data.has("tile"):

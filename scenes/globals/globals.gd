@@ -20,3 +20,5 @@ enum SetTileMode {
 }
 
 var game: Game = null
+
+var game_data: Dictionary = {}
