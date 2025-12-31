@@ -19,9 +19,9 @@ var tiles_presets: TilePresetList
 var turn: int = 0:
 	set(new_turn):
 		# Alert layer entities thats the turn has change
-		# var current_layer_entities: Dictionary[String, Entity] = get_current_layer().entities
+		# var current_layer_entities: Dictionary[String, Item] = get_current_layer().entities
 		# for entity_key in current_layer_entities:
-		# 	var entity: Entity = current_layer_entities[entity_key]
+		# 	var entity: Item = current_layer_entities[entity_key]
 		# 	if is_instance_valid(entity):
 		# 		entity._on_turn_updated(turn, new_turn)
 		# 	else:

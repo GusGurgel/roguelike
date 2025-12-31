@@ -79,27 +79,16 @@ func get_hit(entity: Entity, damage: int) -> bool:
 		return false
 
 
-## Get the entity damage
 func get_damage() -> int:
 	return base_damage
 
 
-## Basic kill function. Just remove the node from the scene.
 func kill() -> void:
 	queue_free()
 
 
-## Move the entity avoiding
 func move_to(pos: Vector2i) -> void:
 	pass
-	# var grid_position_string: String = Utils.vector2i_to_string(self.grid_position)
-	# var pos_string: String = Utils.vector2i_to_string(pos)
-
-	# if layer.can_move_to_position(pos) \
-	# and layer.entities.get(pos_string) == null:
-	# 	layer.entities.erase(grid_position_string)
-	# 	layer.entities.set(pos_string, self)
-	# 	self.grid_position = pos
 
 func load(data: Dictionary) -> void:
 	super.load(data)

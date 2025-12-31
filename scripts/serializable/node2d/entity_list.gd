@@ -13,34 +13,14 @@ func get_entity(pos: Vector2i) -> Entity:
 	return entities.get(Utils.vector2i_to_string(pos))
 
 
-# func set_tile(tile: Tile) -> void:
-# 	var pos_key: String = Utils.vector2i_to_string(tile.grid_position)
-
-# 	if tiles.has(pos_key):
-# 		erase_tile(tile.grid_position)
-# 	tiles[pos_key] = tile
-
-# 	## Add tile or reparent to the current layer.
-# 	if tile.get_parent():
-# 		tile.reparent(self)
-# 	else:
-# 		add_child(tile)
-
-# 	## Update Top Left and Top Right.
-# 	astar_grid.region = astar_grid.region.expand(tile.grid_position + Vector2i.ONE)
-# 	astar_grid.update()
-# 	astar_grid.set_point_solid(tile.grid_position, tile.has_collision)
-
 func add_entity(entity: Entity) -> void:
 	var pos_key: String = Utils.vector2i_to_string(entity.grid_position)
 
 	if entities.has(pos_key):
-		# erase_tile(tile.grid_position)
 		Utils.print_warning("An entity already exists in the position (%s)" % pos_key)
 		return
 	entities[pos_key] = entity
 
-	## Add tile or reparent to the current layer.
 	if entity.get_parent():
 		entity.reparent(self)
 	else:
@@ -66,5 +46,5 @@ func load(data: Dictionary) -> void:
 
 
 func serialize() -> Dictionary:
-	var result: Dictionary = {}
+	var result: Dictionary = super.serialize()
 	return result

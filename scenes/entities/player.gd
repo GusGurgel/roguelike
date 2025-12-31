@@ -181,7 +181,7 @@ func set_max_mana(new_max_mana: int) -> void:
 
 
 func add_item_to_inventory(item: Item) -> void:
-	game.get_current_layer().erase_item(item.grid_position)
+	# game.get_current_layer().erase_item(item.grid_position)
 	item.visible = false
 
 	var item_frame: ItemFrame = item_frame_scene.instantiate()

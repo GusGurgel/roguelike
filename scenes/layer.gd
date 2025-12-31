@@ -4,12 +4,9 @@ class_name Layer
 
 var tiles: TileList
 var entities: EntityList
-var itens: Dictionary[String, Item]
+var items: ItemsList
 
 var astar_grid: AStarGrid2D = AStarGrid2D.new()
-
-@onready var entities_child = $Entities
-@onready var itens_child = $Itens
 
 var top_left: Vector2i:
 	set(value):
@@ -24,12 +21,7 @@ var bottom_right: Vector2i:
 
 
 func _ready() -> void:
-	# Add items.
-	for item: Item in itens.values():
-		if item.get_parent():
-			item.reparent(itens_child)
-		else:
-			itens_child.add_child(item)
+	pass
 	
 
 ## Return all tiles of a grid_position. Including basic tiles and entity tiles.
@@ -40,7 +32,7 @@ func get_tiles(pos: Vector2i) -> Array[Tile]:
 
 	var tile: Variant = tiles.get_tile(pos)
 	var entity: Variant = entities.get_entity(pos)
-	var item: Variant = itens.get(string_pos)
+	var item: Variant = items.get_item(pos)
 
 
 	if tile != null and is_instance_valid(tile):
@@ -73,32 +65,6 @@ func erase_tile(pos: Vector2i) -> bool:
 		tiles.erase(pos_key)
 		return true
 	return false
-
-
-## Return true if item was set, else false
-func set_item(item: Item) -> bool:
-	var pos_key: String = Utils.vector2i_to_string(item.grid_position)
-
-	if itens.get(pos_key) != null:
-		return false
-	
-	itens[pos_key] = item
-	## Add tile or reparent to the current layer.
-	if item.get_parent():
-		item.reparent(itens_child)
-	else:
-		itens_child.add_child(item)
-	
-	return true
-
-
-func erase_item(pos: Vector2i, free_item_node: bool = false) -> void:
-	var pos_key: String = Utils.vector2i_to_string(pos)
-
-	if itens.has(pos_key):
-		if free_item_node:
-			itens[pos_key].queue_free()
-		itens.erase(pos_key)
 
 
 func _update_astar_region() -> void:
@@ -137,8 +103,15 @@ func load(data: Dictionary) -> void:
 
 	entities = EntityList.new(astar_grid)
 	entities.load(data["entities"])
+	entities.name = "Entities"
 	add_child(entities)
 	move_child(entities, 1)
+
+	items = ItemsList.new()
+	items.load(data["items"])
+	items.name = "Items"
+	add_child(items)
+	move_child(items, 2)
 	
 
 func serialize() -> Dictionary:

@@ -50,8 +50,9 @@ func _on_equipe_button_down() -> void:
 
 
 func _on_drop_button_down() -> void:
-	if item.drop():
-		queue_free()
+	pass
+	# if item.drop():
+	# 	queue_free()
 
 
 func _on_unequip_item() -> void:
