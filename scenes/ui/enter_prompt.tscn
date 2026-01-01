@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds7bo617filsf"]
 
-[ext_resource type="Script" uid="uid://dhg1s5f4clveo" path="res://scenes/enter_prompt.gd" id="1_rc8ge"]
+[ext_resource type="Script" uid="uid://dhg1s5f4clveo" path="res://scenes/ui/enter_prompt.gd" id="1_rc8ge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13vjb"]
 content_margin_left = 0.0

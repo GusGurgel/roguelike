@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwrep3ubx5xmu"]
-
-[ext_resource type="Script" uid="uid://pvl2xmkiao34" path="res://scenes/entities/entity.gd" id="1_wcjeu"]
-
-[node name="Entity" type="Sprite2D"]
-script = ExtResource("1_wcjeu")
-health = 50
-metadata/_custom_type_script = "uid://bw72g6fiaq17m"

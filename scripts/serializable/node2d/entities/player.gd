@@ -7,7 +7,7 @@ class_name Player
 
 @export var heal_per_turns: int = 1
 
-@onready var camera = $Camera2D
+var camera: Camera2D = Camera2D.new()
 
 ## Reference to the game Scene
 var game: Game
@@ -21,6 +21,9 @@ var melee_weapon: MeleeWeapon = null
 
 func _ready():
 	super._ready()
+
+	camera.name = "Camera"
+	add_child(camera)
 
 	## Player need to be transparent
 	is_transparent = true

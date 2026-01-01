@@ -5,11 +5,10 @@ class_name Game
 
 var field_of_view: FieldOfView = FieldOfView.new()
 
-var tile_scene = preload("res://scenes/tile.tscn")
-
 ## Just file/string JSON parsed to a Dictionary.
 var raw_data: Dictionary
-var player: Player
+
+var player: Player = Player.new()
 ## Dictionary of game textures.
 var textures: TextureList = TextureList.new()
 ## Dictionary of presets of tiles
@@ -53,13 +52,13 @@ func _ready() -> void:
 	player.game = self
 	field_of_view.game = self
 
+	add_child(layers)
+
 	## Add player
 	add_child(player)
 	game_ui.debug_ui.player = player
 	player.tile_grid_position_change.connect(game_ui.debug_ui._on_player_change_grid_position)
 	player.grid_position = player.grid_position
-
-	add_child(layers)
 
 
 ## Set a tile by a preset. [br]
@@ -86,7 +85,7 @@ func set_tile_by_preset(
 		if not Utils.any_of_array_has_propriety_with_value(current_tiles, "has_collision", false):
 			return
 	
-	tile = tile_scene.instantiate()
+	tile = Tile.new()
 	tile.preset_name = preset
 	tile.copy_basic_proprieties(tiles_presets.get_tile_preset(preset))
 	tile.grid_position = pos
@@ -102,30 +101,22 @@ func get_tiles(pos: Vector2i) -> Array[Tile]:
 func load(data: Dictionary) -> void:
 	raw_data = data
 
-	# Load textures.
-	if not data.has("textures"):
-		Utils.print_warning("Game without a texture list.")
-	else:
-		textures.load(data["textures"])
+	for value in [["textures", textures], ["tiles_presets", tiles_presets], ["layers", layers], ["player", player]]:
+		var key = value[0]
+		var object = value[1]
 
-	# Load tiles_presets
-	if not data.has("tiles_presets"):
-		Utils.print_warning("Game without a tile preset list.")
-	else:
-		tiles_presets.load(data["tiles_presets"])
+		if data.has(key):
+			object.load(data[key])
+		else:
+			Utils.print_warning("Game data is missing a %s information." % key)
 
-	# Load layers.
-	if not data.has("layers"):
-		Utils.print_warning("Game without layers.")
-	else:
-		layers.load(data["layers"])
 
 	# Load player.
-	player = load("res://scenes/entities/player.tscn").instantiate()
-	if not data.has("player"):
-		Utils.print_warning("Game without a player.")
-	else:
-		player.load(data["player"])
+	# player = load("res://scenes/entities/player.tscn").instantiate()
+	# if not data.has("player"):
+	# 	Utils.print_warning("Game without a player.")
+	# else:
+		# player.load(data["player"])
 
 
 	Utils.copy_from_dict_if_exists(

@@ -2,7 +2,6 @@ extends Entity
 class_name Enemy
 
 var player: Player
-var tile_scene = preload("res://scenes/tile.tscn")
 
 enum EnemyMode {
 	ENEMY_WANDERING,

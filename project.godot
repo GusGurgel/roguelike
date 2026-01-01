@@ -17,14 +17,24 @@ config/icon="uid://dbq783km28tfm"
 
 [autoload]
 
-Utils="*res://scenes/globals/utils.gd"
-Globals="*res://scenes/globals/globals.gd"
+Utils="*res://scripts/autoload/utils.gd"
+Globals="*res://scripts/autoload/globals.gd"
 
 [display]
 
 window/size/viewport_width=800
 window/size/viewport_height=600
 window/stretch/mode="canvas_items"
+
+[file_customization]
+
+folder_colors={
+"res://data/": "gray",
+"res://images/": "gray",
+"res://resources/": "gray",
+"res://scenes/": "teal",
+"res://scripts/": "blue"
+}
 
 [input]
 
