@@ -1,20 +1,19 @@
-extends Node
+extends SerializableNode2D
 class_name Game
 ## Represents a parsed playable game. This contains everything the game needs to
 ## run.
 
-@export var field_of_view: FieldOfView
+var field_of_view: FieldOfView = FieldOfView.new()
 
-var layer_scene = preload("res://scenes/layer.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 
 ## Just file/string JSON parsed to a Dictionary.
 var raw_data: Dictionary
 var player: Player
 ## Dictionary of game textures.
-var textures: TextureList
+var textures: TextureList = TextureList.new()
 ## Dictionary of presets of tiles
-var tiles_presets: TilePresetList
+var tiles_presets: TilePresetList = TilePresetList.new()
 
 var turn: int = 0:
 	set(new_turn):
@@ -27,34 +26,29 @@ var turn: int = 0:
 		# 	else:
 		# 		# Remove invalid entity
 		# 		current_layer_entities.erase(entity_key)
-
 		game_ui.turn_value_label.text = str(new_turn)
 		turn = new_turn
 
 
 var game_ui: GameUI
 
-## All layers of the game
-var layers: Dictionary[String, Layer]
-var current_layer: String:
-	set(new_current_layer):
-		var old_current_layer = current_layer
-		if layers.has(new_current_layer):
-			current_layer = new_current_layer
-		else:
-			if len(layers.keys()) > 0:
-				current_layer = layers.keys()[0]
-			else:
-				layers["default"] = layer_scene.instantiate()
-				current_layer = "default"
-		if old_current_layer and layers[old_current_layer].get_parent() == self:
-			remove_child(layers[old_current_layer])
-		add_child(layers[current_layer])
+var layers: LayerList = LayerList.new()
+var layer: Layer:
+	get():
+		return layers.get_current_layer()
+	set(new_layer):
+		pass
 	
-@onready var tile_painter: TilePainter = $TilePainter
+@onready var tile_painter: TilePainter = TilePainter.new()
 
 
 func _ready() -> void:
+	field_of_view.name = "FieldOfView"
+	tile_painter.name = "TilePainter"
+	layers.name = "Layers"
+	add_child(field_of_view)
+	add_child(tile_painter)
+
 	## Set reference to game on player and field_of_view.
 	player.game = self
 	field_of_view.game = self
@@ -64,6 +58,8 @@ func _ready() -> void:
 	game_ui.debug_ui.player = player
 	player.tile_grid_position_change.connect(game_ui.debug_ui._on_player_change_grid_position)
 	player.grid_position = player.grid_position
+
+	add_child(layers)
 
 
 ## Set a tile by a preset. [br]
@@ -94,25 +90,52 @@ func set_tile_by_preset(
 	tile.preset_name = preset
 	tile.copy_basic_proprieties(tiles_presets.get_tile_preset(preset))
 	tile.grid_position = pos
-	get_current_layer().tiles.set_tile(tile)
+	layers.get_current_layer().tiles.set_tile(tile)
 
 
 ## Return tiles from current layer on pos
 func get_tiles(pos: Vector2i) -> Array[Tile]:
-	return get_current_layer().get_tiles(pos)
+	return layers.get_current_layer().get_tiles(pos)
 
 
-func get_current_layer() -> Layer:
-	return layers[current_layer]
+## Load object property from `dict` parameter. 
+func load(data: Dictionary) -> void:
+	raw_data = data
 
-	
-# func get_as_dict() -> Dictionary:
-# 	var result: Dictionary = self.raw_data
+	# Load textures.
+	if not data.has("textures"):
+		Utils.print_warning("Game without a texture list.")
+	else:
+		textures.load(data["textures"])
 
-# 	## Get current layer tiles
-# 	for layer_key in self.raw_data["layers"]:
-# 		result["layers"][layer_key]["tiles"] = self.layers[layer_key].get_tiles_as_dict()
-	
-# 	result["player"] = player.get_as_dict()
+	# Load tiles_presets
+	if not data.has("tiles_presets"):
+		Utils.print_warning("Game without a tile preset list.")
+	else:
+		tiles_presets.load(data["tiles_presets"])
 
-# 	return result
+	# Load layers.
+	if not data.has("layers"):
+		Utils.print_warning("Game without layers.")
+	else:
+		layers.load(data["layers"])
+
+	# Load player.
+	player = load("res://scenes/entities/player.tscn").instantiate()
+	if not data.has("player"):
+		Utils.print_warning("Game without a player.")
+	else:
+		player.load(data["player"])
+
+
+	Utils.copy_from_dict_if_exists(
+		self,
+		data,
+		["turn"],
+		["turn"]
+	)
+
+
+func serialize() -> Dictionary:
+	var result: Dictionary = super.serialize()
+	return result

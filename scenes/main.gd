@@ -4,30 +4,39 @@ class_name Main
 @export var game_viewport: SubViewport
 @export var game_ui: GameUI
 
-@onready var gamer_parser: GameParser = GameParser.new()
 @onready var game: Game
 
 var game_data: Dictionary
 
-func _ready() -> void:
-	var astar_grid: AStarGrid2D = AStarGrid2D.new()
-	
-	gamer_parser.load_from_path("res://data/game.json", game_ui)
-	# gamer_parser.load_from_path(
-	# gamer_parser.load_from_dict(Globals.game_data, game_ui)
+func load_game_from_path(path: String, _game_ui: GameUI) -> Variant:
+	var json_loader: JSONLoader = JSONLoader.new()
 
-	if gamer_parser.has_erros():
-		for error_message in gamer_parser.error_messages:
+	json_loader.load_from_path(path)
+	if json_loader.has_erros():
+		for error_message in json_loader.error_messages:
 			printerr(error_message)
-		return
+		for warning_messages in json_loader.warning_messages:
+			Utils.print_warning(warning_messages)
+		return null
+	else:
+		return load_game_from_dict(json_loader.data, _game_ui)
 
-	for warning_message in gamer_parser.warning_messages:
-		Utils.print_warning(warning_message)
+
+func load_game_from_dict(dict: Dictionary, _game_ui: GameUI) -> Game:
+	var _game: Game = Game.new()
+	_game.game_ui = _game_ui
+
+	Globals.game = _game
 	
-	game = gamer_parser.data
-	
+	_game.load(dict)
+	_game.name = "Game"
+
+	return _game
+
+
+func _ready() -> void:
+	game = load_game_from_path("res://data/game.json", game_ui)
 	game_viewport.add_child(game)
-	Globals.game = game
 
 
 func _unhandled_input(event: InputEvent) -> void:

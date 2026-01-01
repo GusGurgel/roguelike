@@ -56,7 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _handle_grab_item(event_key: InputEventKey) -> void:
 	if event_key.is_action("grab"):
-		for tile in game.get_current_layer().get_tiles(grid_position):
+		for tile in game.layers.get_current_layer().get_tiles(grid_position):
 			var tile_item: Item = tile as Item
 			if tile_item:
 				add_item_to_inventory(tile_item)
@@ -93,12 +93,12 @@ func _handle_movement(event_key: InputEventKey):
 
 	## Check for collision and change player position
 	if game and move != Vector2i.ZERO:
-		if game.get_current_layer().can_move_to_position(grid_position + move):
+		if game.layers.get_current_layer().can_move_to_position(grid_position + move):
 			grid_position += move
 			update_fov.call_deferred()
 			pass_turns(turns_to_move)
 
-			for tile in game.get_current_layer().get_tiles(grid_position):
+			for tile in game.layers.get_current_layer().get_tiles(grid_position):
 				var tile_item: Item = tile as Item
 
 				if tile_item:
@@ -107,7 +107,7 @@ func _handle_movement(event_key: InputEventKey):
 					)
 
 		else:
-			for tile in game.get_current_layer().get_tiles(grid_position + move):
+			for tile in game.layers.get_current_layer().get_tiles(grid_position + move):
 				var enemy: Enemy = tile as Enemy
 				if enemy:
 					pass_turns(turns_to_move)
