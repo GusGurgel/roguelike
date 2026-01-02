@@ -29,7 +29,7 @@ func _on_turn_updated(old_turn: int, new_turn: int) -> void:
 
 	while available_turns > turns_to_move:
 		if enemy_mode == Globals.EnemyMode.ENEMY_WANDERING:
-			step(self.grid_position + Utils.get_random_direction())
+			move_to(self.grid_position + Utils.get_random_direction())
 		elif enemy_mode == Globals.EnemyMode.ENEMY_CHASING:
 			var astar_grid: AStarGrid2D = Globals.game.layers.get_current_layer().astar_grid
 			var player: Player = Globals.game.player
@@ -44,21 +44,24 @@ func _on_turn_updated(old_turn: int, new_turn: int) -> void:
 		available_turns -= turns_to_move
 
 
-## Step 1 tile to de target position.
+## Using A*, step 1 tile to de target position.
 func step(target_position: Vector2i) -> void:
 	var path: PackedVector2Array = layer.astar_grid.get_point_path(grid_position, target_position)
 
-	if len(path) > 1 and Globals.game.layers.get_current_layer().can_move_to_position(path[1]):
+	if len(path) > 1:
+		move_to(path[1])
+
+
+# Move to position if possible.
+func move_to(pos: Vector2i) -> void:
+	if Globals.game.layers.get_current_layer().can_move_to_position(pos):
 		# Update entities dictionary
 		layer.entities.entities.erase(Utils.vector2i_to_string(grid_position))
-		layer.entities.entities[Utils.vector2i_to_string(path[1])] = self
+		layer.entities.entities[Utils.vector2i_to_string(pos)] = self
 		# Update astar_grid
 		layer.astar_grid.set_point_solid(grid_position, false) # free old location
-		layer.astar_grid.set_point_solid(path[1], true) # block new location
-		# Update field of view of player
-		Globals.game.player.update_fov()
-		grid_position = path[1]
-
+		layer.astar_grid.set_point_solid(pos, true) # block new location
+		grid_position = pos
 
 ################################################################################
 # Serialization
