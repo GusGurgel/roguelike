@@ -85,6 +85,9 @@ func get_as_dict(return_grid_position: bool = false) -> Dictionary:
 
 	return result
 
+################################################################################
+# Serialization
+################################################################################
 
 func load(data: Dictionary) -> void:
 	super.load(data)

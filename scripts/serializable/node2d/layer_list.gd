@@ -24,6 +24,9 @@ func switch_layer(layer_key: String) -> void:
 		current_layer_key = "default"
 	add_child(get_layer(layer_key))
 
+################################################################################
+# Serialization
+################################################################################
 
 func load(data: Dictionary) -> void:
 	super.load(data)

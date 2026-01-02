@@ -4,13 +4,15 @@ class_name TilePresetList
 var tiles_presets: Dictionary[String, Tile]
 
 
-## Return tile_preset if exists, else returns default.
 func get_tile_preset(tile_preset_key: String) -> Tile:
 	if tiles_presets.has(tile_preset_key):
 		return tiles_presets[tile_preset_key]
 	else:
 		return tiles_presets["default"]
 
+################################################################################
+# Serialization
+################################################################################
 
 func load(data: Dictionary) -> void:
 	super.load(data)

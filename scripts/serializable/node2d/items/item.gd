@@ -9,6 +9,13 @@ class_name Item
 
 signal on_unequip
 
+var layer: Layer
+
+
+func _init(_layer: Layer):
+	layer = _layer
+
+
 func _ready():
 	super._ready()
 	is_transparent = true
@@ -34,6 +41,9 @@ func unequip() -> void:
 
 # 	return item_was_drop
 
+################################################################################
+# Serialization
+################################################################################
 
 func load(data: Dictionary) -> void:
 	super.load(data)

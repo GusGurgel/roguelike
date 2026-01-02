@@ -17,8 +17,10 @@ func get_texture_monochrome(texture_key: String) -> AtlasTexture:
 	else:
 		return textures["monochrome_default"]
 
+################################################################################
+# Serialization
+################################################################################
 
-## Texture are load in two versions, monochrome and colored. 
 func load(data: Dictionary) -> void:
 	super.load(data)
 

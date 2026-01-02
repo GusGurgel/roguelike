@@ -20,12 +20,20 @@ func _ready():
 
 var dict_string_to_enemy_type: Dictionary[String, Globals.EntityType] = {
 	"default" = Globals.EntityType.ENTITY,
-	"enemy" = Globals.EntityType.ENEMY,
-	"entity" = Globals.EntityType.ENTITY
+	"entity" = Globals.EntityType.ENTITY,
+	"enemy" = Globals.EntityType.ENEMY
 }
 func string_to_enemy_type(string: String) -> Globals.EntityType:
 	return dict_string_to_enemy_type.get(string.strip_edges().to_lower(), dict_string_to_enemy_type["default"])
 
+var dict_string_to_item_type: Dictionary[String, Globals.ItemType] = {
+	"default" = Globals.ItemType.ITEM,
+	"item" = Globals.ItemType.ITEM,
+	"healing_potion" = Globals.ItemType.HEALING_POTION,
+	"melee_weapon" = Globals.ItemType.MELEE_WEAPON
+}
+func string_to_item_type(string: String) -> Globals.ItemType:
+	return dict_string_to_item_type.get(string.strip_edges().to_lower(), dict_string_to_item_type["default"])
 
 ## Return true if any element of array has propriety == value. Else, returns false.
 func any_of_array_has_propriety_with_value(

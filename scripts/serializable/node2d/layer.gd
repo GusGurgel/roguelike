@@ -38,6 +38,9 @@ func can_move_to_position(pos: Vector2i) -> bool:
 	var pos_tiles: Array[Tile] = get_tiles(pos)
 	return not Utils.any_of_array_has_propriety_with_value(pos_tiles, "has_collision", true)
 
+################################################################################
+# Serialization
+################################################################################
 
 func load(data: Dictionary) -> void:
 	super.load(data)

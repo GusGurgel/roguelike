@@ -30,13 +30,25 @@ func add_item(item: Item) -> void:
 func load(data: Dictionary) -> void:
 	super.load(data)
 	for item_key in data:
-		var item: Item = Item.new()
 		var item_data: Dictionary = data[item_key]
 		var grid_position: Vector2i = Utils.string_to_vector2i(item_key)
 		item_data["grid_position"] = {
 			x = grid_position.x,
 			y = grid_position.y
 		}
+		var item: Item
+
+		if not item_data.has("type"):
+			item_data["type"] = "default"
+		
+		match Utils.string_to_item_type(item_data["type"]):
+			Globals.ItemType.HEALING_POTION:
+				item = HealingPotion.new(layer)
+			Globals.ItemType.MELEE_WEAPON:
+				item = MeleeWeapon.new(layer)
+			_:
+				item = Item.new(layer)
+
 		item.load(item_data)
 		add_item(item)
 

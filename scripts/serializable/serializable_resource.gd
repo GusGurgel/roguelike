@@ -1,7 +1,10 @@
 extends Resource
 class_name SerializableResource
 
-## Load object property from `dict` parameter. 
+################################################################################
+# Serialization
+################################################################################
+
 func load(data: Dictionary) -> void:
 	pass
 

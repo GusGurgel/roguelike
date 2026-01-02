@@ -1,7 +1,10 @@
 extends Sprite2D
 class_name SerializableSprite2D
 
-## Load object property from `dict` parameter. 
+################################################################################
+# Serialization
+################################################################################
+
 func load(data: Dictionary) -> void:
 	pass
 

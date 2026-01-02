@@ -42,6 +42,10 @@ func erase_tile(pos: Vector2i) -> bool:
 		return true
 	return false
 
+################################################################################
+# Serialization
+################################################################################
+
 
 func load(data: Dictionary) -> void:
 	super.load(data)

@@ -1,7 +1,10 @@
 extends Node2D
 class_name SerializableNode2D
 
-## Load object property from `dict` parameter. 
+################################################################################
+# Serialization
+################################################################################
+
 func load(data: Dictionary) -> void:
 	pass
 

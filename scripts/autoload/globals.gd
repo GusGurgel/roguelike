@@ -29,12 +29,22 @@ enum EnemyMode {
 	ENEMY_CHASING
 }
 
+enum ItemType {
+	ITEM,
+	HEALING_POTION,
+	MELEE_WEAPON
+}
+
 ################################################################################
 # Preloads
 ################################################################################
 
-var colored_texture: CompressedTexture2D = preload("res://images/tileset_colored.png")
-var monochrome_texture: CompressedTexture2D = preload("res://images/tileset_monochrome.png")
+var colored_texture: CompressedTexture2D = preload(
+	"res://images/tileset_colored.png"
+)
+var monochrome_texture: CompressedTexture2D = preload(
+	"res://images/tileset_monochrome.png"
+)
 
 var scenes: Dictionary[String, PackedScene] = {
 }
@@ -43,8 +53,12 @@ var scenes: Dictionary[String, PackedScene] = {
 # ReGex
 ################################################################################
 
-var vector2i_string_regex: RegEx = RegEx.create_from_string("^(-?\\d+),(-?\\d+)$")
-var hex_color_regex: RegEx = RegEx.create_from_string("^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
+var vector2i_string_regex: RegEx = RegEx.create_from_string(
+	"^(-?\\d+),(-?\\d+)$"
+)
+var hex_color_regex: RegEx = RegEx.create_from_string(
+	"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+)
 
 ################################################################################
 # Globals
@@ -53,4 +67,4 @@ var hex_color_regex: RegEx = RegEx.create_from_string("^#([0-9a-fA-F]{3}|[0-9a-f
 var game: Game = null
 var game_data: Dictionary = {}
 
-var astar_grid_region = Rect2i(Vector2i(-1000, -1000), Vector2i(2000, 2000))
+var astar_grid_region = Rect2i(Vector2i(-100, -100), Vector2i(300, 300))
