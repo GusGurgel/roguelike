@@ -36,11 +36,11 @@ func _ready() -> void:
 	game_viewport.add_child(game)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	var event_key = event as InputEventKey
+# func _unhandled_input(event: InputEvent) -> void:
+# 	var event_key = event as InputEventKey
 
-	if event_key and event_key.pressed and not event_key.echo and event_key.keycode == KEY_SPACE:
-		game.set_tile_by_preset("brick_wall", game.player.grid_position + Vector2i.UP)
+# 	if event_key and event_key.pressed and not event_key.echo and event_key.keycode == KEY_SPACE:
+# 		game.set_tile_by_preset("brick_wall", game.player.grid_position + Vector2i.UP)
 
 
 func _notification(what: int):

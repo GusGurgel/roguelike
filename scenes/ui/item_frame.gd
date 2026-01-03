@@ -1,12 +1,13 @@
-extends TextureRect
+extends HBoxContainer
 class_name ItemFrame
 
-@export var item: Item
+var item: Item
 
 @export var name_label: Label
 @export var use_button: Button
 @export var equipe_button: Button
 @export var drop_button: Button
+@export var texture_rect: TextureRect
 
 
 func _ready() -> void:
@@ -26,8 +27,8 @@ func _ready() -> void:
 	else:
 		equipe_button.visible = false
 	
-	texture = item.texture
-	self_modulate = item.modulate
+	texture_rect.texture = item.texture
+	texture_rect.self_modulate = item.modulate
 	name_label.text = item.tile_name
 
 	drop_button.button_down.connect(_on_drop_button_down)

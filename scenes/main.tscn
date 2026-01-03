@@ -27,7 +27,7 @@ layout_mode = 2
 [node name="GameViewport" type="SubViewport" parent="Interface/FirstRow/GameViewportContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(800, 400)
+size = Vector2i(800, 357)
 render_target_update_mode = 4
 
 [node name="SecondRow" type="HBoxContainer" parent="Interface"]

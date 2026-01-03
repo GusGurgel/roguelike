@@ -34,7 +34,7 @@ theme_override_constants/separation = 9
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Go to position"
+text = "Move"
 
 [node name="X" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

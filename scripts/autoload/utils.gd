@@ -30,7 +30,8 @@ var dict_string_to_item_type: Dictionary[String, Globals.ItemType] = {
 	"default" = Globals.ItemType.ITEM,
 	"item" = Globals.ItemType.ITEM,
 	"healing_potion" = Globals.ItemType.HEALING_POTION,
-	"melee_weapon" = Globals.ItemType.MELEE_WEAPON
+	"melee_weapon" = Globals.ItemType.MELEE_WEAPON,
+	"range_weapon" = Globals.ItemType.RANGE_WEAPON
 }
 func string_to_item_type(string: String) -> Globals.ItemType:
 	return dict_string_to_item_type.get(string.strip_edges().to_lower(), dict_string_to_item_type["default"])

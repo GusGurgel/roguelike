@@ -8,6 +8,7 @@
         "onready",
         "printerr",
         "randi",
+        "regen",
         "reparent",
         "tilemap",
         "tileset",

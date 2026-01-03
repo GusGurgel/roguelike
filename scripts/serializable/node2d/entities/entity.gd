@@ -67,7 +67,7 @@ func get_hit(entity: Entity, damage: int) -> bool:
 		return false
 
 
-func get_damage() -> int:
+func get_melee_damage() -> int:
 	return base_damage
 
 

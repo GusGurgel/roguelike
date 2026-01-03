@@ -36,7 +36,7 @@ func _on_turn_updated(old_turn: int, new_turn: int) -> void:
 			var path: PackedVector2Array = astar_grid.get_point_path(grid_position, player.grid_position)
 
 			if len(path) == 2:
-				Globals.game.player.get_hit(self, get_damage())
+				Globals.game.player.get_hit(self, get_melee_damage())
 			else:
 				step(Globals.game.player.grid_position)
 				player.update_fov()

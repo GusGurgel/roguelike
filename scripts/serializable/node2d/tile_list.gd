@@ -28,8 +28,6 @@ func set_tile(tile: Tile) -> void:
 
 
 	layer.astar_grid.set_point_solid(tile.grid_position, tile.has_collision)
-	if tile.grid_position == Vector2i(55, 74):
-		print("tile_list: " + str(layer.astar_grid.is_point_solid(Vector2i(55, 74))))
 
 
 func erase_tile(pos: Vector2i) -> bool:

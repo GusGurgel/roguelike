@@ -9,12 +9,6 @@ var description: String = "default"
 
 signal on_unequip
 
-var layer: Layer
-
-
-func _init(_layer: Layer):
-	layer = _layer
-
 
 func _ready():
 	super._ready()

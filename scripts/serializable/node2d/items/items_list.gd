@@ -59,11 +59,13 @@ func load(data: Dictionary) -> void:
 		
 		match Utils.string_to_item_type(item_data["type"]):
 			Globals.ItemType.HEALING_POTION:
-				item = HealingPotion.new(layer)
+				item = HealingPotion.new()
 			Globals.ItemType.MELEE_WEAPON:
-				item = MeleeWeapon.new(layer)
+				item = MeleeWeapon.new()
+			Globals.ItemType.RANGE_WEAPON:
+				item = RangeWeapon.new()
 			_:
-				item = Item.new(layer)
+				item = Item.new()
 
 		item.load(item_data)
 		add_item(item)

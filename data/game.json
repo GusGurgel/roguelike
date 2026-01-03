@@ -10115,6 +10115,20 @@
             "is_explored": true,
             "preset_name": "orc",
             "is_in_view": true
+          },
+          "50,76": {
+            "type": "Enemy",
+            "base_damage": 5,
+            "entity_name": "Warrior",
+            "max_health": 30,
+            "health": 53,
+            "max_mana": 3,
+            "mana": 3,
+            "turns_to_move": 1,
+            "has_collision": true,
+            "is_explored": true,
+            "preset_name": "warrior",
+            "is_in_view": true
           }
         },
         "items": {
@@ -10143,6 +10157,13 @@
             "type": "melee_weapon",
             "damage": 1,
             "description": "The shitest sword in the world!"
+          },
+          "73,86": {
+            "preset_name": "pistol",
+            "type": "range_weapon",
+            "damage": 10,
+            "mana_cost": 5,
+            "description": "A gun!"
           }
         }
       }
@@ -10162,7 +10183,8 @@
     },
     "is_explored": true,
     "preset_name": "warrior",
-    "heal_per_turns": 1
+    "heal_per_turns": 1,
+    "experience": 600
   },
   "textures": {
     "brick_floor": {
@@ -10192,6 +10214,10 @@
     "sword": {
       "x": 32,
       "y": 6
+    },
+    "pistol": {
+      "x": 37,
+      "y": 9
     }
   },
   "tiles_presets": {
@@ -10264,6 +10290,11 @@
       "color": "#fff",
       "texture": "sword",
       "tile_name": "Iron Sword"
+    },
+    "pistol": {
+      "color": "#333333",
+      "texture": "pistol",
+      "tile_name": "Pistol"
     }
   },
   "turn": 0

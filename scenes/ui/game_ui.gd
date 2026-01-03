@@ -1,9 +1,10 @@
-extends TabContainer
+extends HBoxContainer
 class_name GameUI
 
 @export var prompt: RichTextLabel
 @export var debug_ui: DebugUI
-@export var inventory: FlowContainer
+@export var inventory: VBoxContainer
+@export var tab_container: TabContainer
 
 @export_group("Player Infos")
 @export var turn_value_label: Label
@@ -11,10 +12,26 @@ class_name GameUI
 @export var health_label: Label
 @export var mana_progress_bar: ProgressBar
 @export var mana_label: Label
+@export var level_progress_bar: ProgressBar
+@export var level_label: Label
+
+@export var melee_weapon_label: Label
+@export var range_weapon_label: Label
 
 
 func _ready():
 	clear_prompt()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var event_key = event as InputEventKey
+
+	if event_key:
+		if event_key.is_action_pressed("tab_next"):
+			tab_container.select_next_available()
+
+		if event_key.is_action_pressed("tab_previous"):
+			tab_container.select_previous_available()
 
 
 func clear_prompt() -> void:

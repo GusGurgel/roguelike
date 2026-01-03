@@ -32,7 +32,8 @@ enum EnemyMode {
 enum ItemType {
 	ITEM,
 	HEALING_POTION,
-	MELEE_WEAPON
+	MELEE_WEAPON,
+	RANGE_WEAPON
 }
 
 ################################################################################
@@ -59,6 +60,21 @@ var vector2i_string_regex: RegEx = RegEx.create_from_string(
 var hex_color_regex: RegEx = RegEx.create_from_string(
 	"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
 )
+
+################################################################################
+# Configurations
+################################################################################
+
+var player_config: Dictionary = {
+	"level_up_experience_base": 100,
+	"level_up_experience_increase_per_level": 0.2,
+	"mana_base": 15,
+	"mana_gain_per_level": 0.2,
+	"health_base": 20,
+	"health_gain_per_level": 0.2,
+	"damage_multiplier_increase_per_level": 0.1,
+	"base_melee_damage": 10
+}
 
 ################################################################################
 # Globals

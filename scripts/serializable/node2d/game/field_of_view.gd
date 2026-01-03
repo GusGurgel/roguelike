@@ -19,7 +19,11 @@ const OCTANT_TRANSFORMS = [
 	Vector2i(1, 0), Vector2i(0, -1), # 7: E-SE
 ]
 
+var enemies_in_view: Array[Enemy] = []
+
 func update_fov(origin: Vector2i):
+	enemies_in_view = []
+
 	# 1. Limpa a lista temporária do frame atual
 	_current_frame_visible.clear()
 
@@ -45,6 +49,9 @@ func update_fov(origin: Vector2i):
 	# 5. Processar ENTITIES/TILES que entraram no campo de visão (Enter) e atualizar visual
 	for tile in _current_frame_visible:
 		if is_instance_valid(tile):
+			if tile is Entity:
+				enemies_in_view.append(tile)
+
 			# Se não estava na lista anterior, acabou de entrar
 			if not tile in _visible_tiles:
 				if tile is Entity:
