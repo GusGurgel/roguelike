@@ -4,8 +4,6 @@ class_name Item
 var usable: bool = false
 var equippable: bool = false
 var equipped: bool = false
-var type: String = "default"
-var description: String = "default"
 
 signal on_unequip
 
@@ -47,8 +45,7 @@ func load(data: Dictionary) -> void:
 		[
 			"usable",
 			"equippable",
-			"equipped",
-			"description"
+			"equipped"
 		]
 	)
 

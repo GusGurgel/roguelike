@@ -41,6 +41,7 @@ var preset_name: String = ""
 var texture_name: String = ""
 
 var tile_name: String = ""
+var tile_description: String = ""
 
 
 func _ready():
@@ -59,31 +60,17 @@ func copy_basic_proprieties(tile: Tile) -> void:
 	self.tile_name = tile.tile_name
 
 
-func get_as_dict(return_grid_position: bool = false) -> Dictionary:
-	var result: Dictionary = {}
+func get_info() -> String:
+	var info: String = """Name: %s
+Description: %s""" % [tile_name, tile_description]
 
-	if preset_name != "":
-		result = {
-			preset_name = self.preset_name,
-			is_explored = self.is_explored
-		}
-	else:
-		result = {
-			texture = self.texture,
-			modulate = self.modulate,
-			has_collision = self.has_collision,
-			is_explored = self.is_explored,
-			is_in_view = self.is_in_view,
-			is_transparent = self.is_transparent
-		}
-	
-	if return_grid_position:
-		result["grid_position"] = {
-			x = self.grid_position.x,
-			y = self.grid_position.y
-		}
+	if Globals.verbose_tile_info:
+		info += "\nTexture Name: %s" % texture_name
+		info += "\nHas Collision: %s" % has_collision
+		if preset_name != "":
+			info += "\nPreset Name: %s" % preset_name
 
-	return result
+	return info
 
 ################################################################################
 # Serialization
@@ -109,10 +96,12 @@ func load(data: Dictionary) -> void:
 		var tile_preset: Tile = game.tiles_presets.get_tile_preset(data["preset_name"])
 		if tile_preset != null:
 			texture = tile_preset.texture
+			texture_name = tile_preset.texture_name
 			has_collision = tile_preset.has_collision
 			is_transparent = tile_preset.is_transparent
 			modulate = tile_preset.modulate
 			tile_name = tile_preset.tile_name
+			tile_description = tile_preset.tile_description
 		else:
 			Utils.print_warning("Preset '%s' not exists." % data["preset_name"])
 			data.erase("preset_name")
@@ -123,6 +112,10 @@ func load(data: Dictionary) -> void:
 		warnings = ["grid_position", "texture", "tile_name"]
 
 	if data.has("texture"):
+		if game.textures.textures.has(data["texture"]):
+			texture_name = data["texture"]
+		else:
+			texture_name = "default"
 		texture = game.textures.get_texture(data["texture"])
 
 	if data.has("color"):
@@ -140,7 +133,8 @@ func load(data: Dictionary) -> void:
 			"is_transparent",
 			"has_collision",
 			"is_explored",
-			"tile_name"
+			"tile_name",
+			"tile_description"
 		],
 		warnings
 	)

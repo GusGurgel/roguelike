@@ -32,6 +32,11 @@ var level: int = 0
 var experience: int = 0
 var damage_multiplier = 0
 
+var mouse_grid_position: Vector2i = Vector2i.ZERO
+var under_mouse_tile_info: String = ""
+
+var description_frame: DescriptionFrame
+
 func _ready():
 	super._ready()
 
@@ -58,8 +63,46 @@ func _ready():
 	set_experience(experience)
 	set_health(max_health)
 	set_mana(max_mana)
-	print(damage_multiplier)
 
+
+func set_description_frame(_description_frame: DescriptionFrame) -> void:
+	description_frame = _description_frame
+	
+	description_frame.name = "DescriptionFrame"
+	description_frame.visible = false
+	# description_frame.description_label.text = ""
+
+
+func _process(_delta):
+	var new_grid_mouse_position: Vector2i = \
+	Utils.global_position_to_grid_position(get_local_mouse_position()) - Vector2i.ONE + grid_position
+	var is_mouse_under_viewport: bool = Globals.game_viewport_rect.has_point(get_viewport().get_mouse_position())
+	if is_mouse_under_viewport and mouse_grid_position != new_grid_mouse_position:
+		mouse_grid_position = new_grid_mouse_position
+	
+	if is_mouse_under_viewport and Input.is_action_just_pressed("show_under_mouse_tile_info"):
+		description_frame.visible = true
+		var offset_x = 0
+
+		if get_viewport().get_mouse_position().x > Globals.game_viewport_rect.size.x - description_frame.size.x:
+			offset_x = - description_frame.size.x
+
+		var new_position = get_viewport().get_mouse_position()
+		new_position.x += offset_x
+		description_frame.position = new_position
+
+		description_frame.description_label.text = ""
+
+		var tiles: Array[Tile] = Globals.game.layers.get_current_layer().get_tiles(mouse_grid_position)
+
+
+		if len(tiles) >= 1:
+			description_frame.description_label.text = tiles[0].get_info()
+			
+	if Input.is_action_just_released("show_under_mouse_tile_info"):
+		description_frame.visible = false
+	
+	
 func _unhandled_input(event: InputEvent) -> void:
 	var event_key = event as InputEventKey
 
@@ -103,7 +146,7 @@ func _handle_use_range_weapon(event_key: InputEventKey) -> void:
 							entity_name,
 							close_enemy.entity_name,
 							range_weapon.tile_name,
-							get_melee_damage(),
+							get_range_damage(),
 							close_enemy.entity_name,
 							close_enemy.health
 						]

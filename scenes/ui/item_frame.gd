@@ -33,7 +33,7 @@ func _ready() -> void:
 
 	drop_button.button_down.connect(_on_drop_button_down)
 
-	tooltip_text = item.description
+	tooltip_text = item.get_info()
 
 
 func _on_use_button_down() -> void:

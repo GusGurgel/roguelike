@@ -79,8 +79,8 @@ func grid_position_to_global_position(grid_position: Vector2i) -> Vector2:
 ## Converts float global position to a integer grid_position.
 func global_position_to_grid_position(global_position: Vector2) -> Vector2i:
 	return Vector2(
-		global_position.x / Globals.tile_size.x,
-		global_position.y / Globals.tile_size.y
+		ceili(global_position.x / float(Globals.tile_size.x)),
+		ceili(global_position.y / float(Globals.tile_size.y))
 	)
 
 ## Serialize a Vector2i.

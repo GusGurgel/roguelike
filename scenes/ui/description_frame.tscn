@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://btsggi2xcl4fn"]
+
+[ext_resource type="Script" uid="uid://dqxftxgx1kbb3" path="res://scenes/ui/description_frame.gd" id="1_3vplo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6syy"]
+bg_color = Color(0.0885599, 0.08855992, 0.08855986, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="DescriptionFrame" type="ScrollContainer" node_paths=PackedStringArray("description_label")]
+offset_right = 234.0
+offset_bottom = 123.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i6syy")
+script = ExtResource("1_3vplo")
+description_label = NodePath("DescriptionLabel")
+
+[node name="DescriptionLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut laoreet nisl eu suscipit aliquam. Ut sed lectus tortor. Fusce feugiat sit amet tortor et auctor. Maecenas dignissim ligula augue, et consequat augue varius eget. Nam aliquet felis nunc, eu viverra sapien cursus et. Integer scelerisque varius massa, a semper justo mollis et. Etiam vel felis sed magna ornare iaculis.
+
+Donec efficitur nunc eu consequat ultricies. Phasellus mattis finibus turpis, ac egestas dolor ultricies eget. Nulla sed tortor ac eros sodales molestie. Sed et hendrerit urna, eget pharetra ipsum. Vestibulum massa risus, tincidunt vel enim a, luctus finibus dui. Praesent aliquam rhoncus justo, nec commodo est tincidunt quis. Quisque aliquet leo magna, et lacinia ipsum tincidunt at.
+
+Mauris rutrum pellentesque turpis eu luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam vel feugiat dolor. Quisque hendrerit ullamcorper gravida. Nullam porttitor varius dui posuere ornare. Etiam aliquam purus eu augue mollis, tincidunt convallis leo ultricies. Nunc vulputate, ipsum nec dapibus tincidunt, ligula urna tincidunt ligula, et blandit velit sapien vitae dui. Vestibulum lacinia tortor orci, eget viverra lacus interdum non. Aliquam vehicula at elit eu convallis. Phasellus imperdiet ipsum eget quam suscipit porta.
+
+Cras vitae ornare libero. Sed lacinia, risus id faucibus pulvinar, sem ipsum feugiat sapien, a semper augue lectus ac purus. Sed gravida enim sit amet ultricies blandit. Quisque molestie eget arcu laoreet dignissim. Curabitur a elit efficitur, ultricies magna ut, congue odio. Morbi efficitur maximus mattis. Phasellus mollis lacus sollicitudin nunc laoreet, id ullamcorper neque tincidunt. Sed sit amet elit vulputate, hendrerit velit sed, eleifend quam. Donec vel condimentum quam, accumsan ornare nisl. Nulla faucibus convallis eros, at imperdiet leo dignissim sed. Vivamus ut posuere augue.
+
+Nunc pellentesque est vitae tristique varius. In tempus orci orci, quis pharetra mauris faucibus vel. Aliquam erat volutpat. Nunc eu venenatis nunc. Nam lacus augue, mollis ac enim sed, tristique tincidunt mauris. Vivamus gravida velit eget pellentesque imperdiet. Nam feugiat in ante nec efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam eu varius dui, non tempus sapien. Donec porttitor tempor augue, et auctor metus. Maecenas sem urna, fringilla eu consectetur vitae, imperdiet luctus orci. "
+autowrap_mode = 3

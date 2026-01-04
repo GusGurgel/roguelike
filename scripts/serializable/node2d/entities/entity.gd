@@ -74,6 +74,17 @@ func get_melee_damage() -> int:
 func kill() -> void:
 	queue_free()
 
+
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info += """\nHealth: %d/%d
+Mana: %d
+Damage: %d""" % [health, max_health, mana, get_melee_damage()]
+
+	return info
+
+
 ################################################################################
 # Serialization
 ################################################################################

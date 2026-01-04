@@ -32,6 +32,13 @@ func drop() -> bool:
 	return super.drop()
 
 
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info += """\nDamage: %s""" % damage
+
+	return info
+
 ################################################################################
 # Serialization
 ################################################################################

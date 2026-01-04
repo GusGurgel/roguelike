@@ -10135,35 +10135,30 @@
           "71,81": {
             "preset_name": "healing_potion_10",
             "type": "healing_potion",
-            "health_increase": 10,
-            "description": "A potion that's heals 10 points of health"
+            "health_increase": 10
           },
           "71,82": {
             "preset_name": "healing_potion_40",
             "type": "healing_potion",
-            "health_increase": 40,
-            "description": "A potion that's heals 40 points of health"
+            "health_increase": 40
           },
           "71,84": {
             "preset_name": "sword",
             "type": "melee_weapon",
-            "damage": 999,
-            "description": "The better sword in the world!"
+            "damage": 999
           },
           "73,84": {
             "preset_name": "sword",
             "tile_name": "Shit Sword",
             "color": "#9effb1",
             "type": "melee_weapon",
-            "damage": 1,
-            "description": "The shitest sword in the world!"
+            "damage": 1
           },
           "73,86": {
             "preset_name": "pistol",
             "type": "range_weapon",
             "damage": 10,
-            "mana_cost": 5,
-            "description": "A gun!"
+            "mana_cost": 5
           }
         }
       }
@@ -10230,7 +10225,8 @@
       "has_collision": false,
       "is_transparent": true,
       "texture": "brick_floor",
-      "tile_name": "Brick Floor"
+      "tile_name": "Brick Floor",
+      "tile_description": "A floor made of bricks."
     },
     "marker": {
       "color": "#ff3c00",
@@ -10241,7 +10237,8 @@
       "has_collision": false,
       "is_transparent": true,
       "texture": "brick_floor",
-      "tile_name": "Marker"
+      "tile_name": "Marker",
+      "tile_description": "A debug tile to marker some tiles."
     },
     "brick_wall": {
       "grid_position": {
@@ -10251,7 +10248,8 @@
       "has_collision": true,
       "is_transparent": false,
       "texture": "brick_wall",
-      "tile_name": "Brick Wall"
+      "tile_name": "Brick Wall",
+      "tile_description": "A wall made of stone bricks."
     },
     "orc": {
       "grid_position": {
@@ -10263,7 +10261,8 @@
       "is_in_view": true,
       "texture": "orc",
       "color": "#00f064",
-      "tile_name": "Orc"
+      "tile_name": "Orc",
+      "tile_description": "A strong orc."
     },
     "warrior": {
       "color": "#f2f2f2",
@@ -10274,27 +10273,32 @@
       "has_collision": true,
       "is_transparent": true,
       "texture": "warrior",
-      "tile_name": "Warrior"
+      "tile_name": "Warrior",
+      "tile_description": "A warrior enemy"
     },
     "healing_potion_10": {
       "color": "#f2c6c4",
       "texture": "healing_potion",
-      "tile_name": "Healing Potion +10"
+      "tile_name": "Healing Potion +10",
+      "tile_description": "A potion of healing."
     },
     "healing_potion_40": {
       "color": "#ff4b45",
       "texture": "healing_potion",
-      "tile_name": "Healing Potion +40"
+      "tile_name": "Healing Potion +40",
+      "tile_description": "A potion of healing."
     },
     "sword": {
       "color": "#fff",
       "texture": "sword",
-      "tile_name": "Iron Sword"
+      "tile_name": "Iron Sword",
+      "tile_description": "Strong iron sword."
     },
     "pistol": {
       "color": "#333333",
       "texture": "pistol",
-      "tile_name": "Pistol"
+      "tile_name": "Pistol",
+      "tile_description": "P250 pistol."
     }
   },
   "turn": 0

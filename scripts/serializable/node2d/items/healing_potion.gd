@@ -12,6 +12,15 @@ func _ready() -> void:
 func use() -> void:
 	Globals.game.player.health += health_increase
 
+
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info += """\nHealth Regeneration: %s""" % health_increase
+
+	return info
+
+
 ################################################################################
 # Serialization
 ################################################################################

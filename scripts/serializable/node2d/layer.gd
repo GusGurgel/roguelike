@@ -17,17 +17,14 @@ func get_tiles(pos: Vector2i) -> Array[Tile]:
 	var entity: Variant = entities.get_entity(pos) as Entity
 	var item: Variant = items.get_item(pos) as Item
 
-
-	if is_instance_valid(tile):
-		tiles_arr.push_back(tile)
-	
-	
 	if is_instance_valid(entity):
 		tiles_arr.push_back(entity)
 
-
 	if is_instance_valid(item):
 		tiles_arr.push_back(item)
+
+	if is_instance_valid(tile):
+		tiles_arr.push_back(tile)
 
 
 	return tiles_arr

@@ -3,6 +3,7 @@ class_name Main
 
 @export var game_viewport: SubViewport
 @export var game_ui: GameUI
+@export var description_frame: DescriptionFrame
 
 @onready var game: Game
 
@@ -33,6 +34,7 @@ func load_game_from_dict(dict: Dictionary, _game_ui: GameUI) -> Game:
 
 func _ready() -> void:
 	game = load_game_from_path("res://data/game.json", game_ui)
+	game.player.set_description_frame(description_frame)
 	game_viewport.add_child(game)
 
 
@@ -45,15 +47,7 @@ func _ready() -> void:
 
 func _notification(what: int):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		# save_game()
 		pass
-
-
-func save_game() -> void:
-	var json_saver = JSONSaver.new()
-	json_saver.save_json_data(game.get_as_dict(), "res://data/data_saved.json")
-	if json_saver.has_erros():
-		print("JSON saver errors: " + str(json_saver.error_messages))
 
 
 func generate_dungeon() -> void:

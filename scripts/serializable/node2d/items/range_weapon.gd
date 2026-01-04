@@ -32,6 +32,15 @@ func drop() -> bool:
 	unequip()
 	return super.drop()
 
+
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info += """\nDamage: %s
+Mana Cost: %s """ % [ damage, mana_cost ]
+
+	return info
+
 ################################################################################
 # Serialization
 ################################################################################
