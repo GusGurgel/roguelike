@@ -10170,16 +10170,20 @@
     "max_mana": 10,
     "mana": 10,
     "base_damage": 10,
-    "entity_name": "Silver Warrior",
     "turns_to_move": 1,
     "grid_position": {
       "x": 72,
       "y": 81
     },
     "is_explored": true,
-    "preset_name": "warrior",
     "heal_per_turns": 1,
-    "experience": 600
+    "experience": 600,
+    "color": "#f2f2f2",
+    "has_collision": true,
+    "is_transparent": true,
+    "texture": "warrior",
+    "tile_name": "Warrior",
+    "tile_description": "A warrior enemy"
   },
   "textures": {
     "brick_floor": {

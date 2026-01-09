@@ -6,6 +6,7 @@ class_name Main
 @export var description_frame: DescriptionFrame
 
 @onready var game: Game
+@onready var asset_bundle: AssetBundle
 
 var game_data: Dictionary
 
@@ -33,6 +34,16 @@ func load_game_from_dict(dict: Dictionary, _game_ui: GameUI) -> Game:
 
 
 func _ready() -> void:
+	var json_loader: JSONLoader = JSONLoader.new()
+	json_loader.load_from_path("res://data/dark_souls_asset_bundle.json")
+	if not json_loader.has_erros():
+		asset_bundle = AssetBundle.new()
+		asset_bundle.load(json_loader.data)
+
+		var json_saver: JSONSaver = JSONSaver.new()
+		json_saver.save_json_data(asset_bundle.generate_json_game(), "res://data/asset_bundle.json")
+
+
 	game = load_game_from_path("res://data/game.json", game_ui)
 	game.player.set_description_frame(description_frame)
 	game_viewport.add_child(game)

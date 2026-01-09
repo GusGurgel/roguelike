@@ -61,9 +61,9 @@ func load(data: Dictionary) -> void:
 
 		match Utils.string_to_enemy_type(entity_data["type"]):
 			Globals.EntityType.ENEMY:
-				entity = Enemy.new(layer)
+				entity = Enemy.new()
 			_:
-				entity = Entity.new(layer)
+				entity = Entity.new()
 			
 
 		entity.load(entity_data)

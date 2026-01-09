@@ -15,7 +15,7 @@ var layer: Layer:
 	set(new_layer):
 		pass
 
-var player: Player = Player.new(Layer.new())
+var player: Player = Player.new()
 ## Dictionary of game textures.
 var textures: TextureList = TextureList.new()
 ## Dictionary of presets of tiles

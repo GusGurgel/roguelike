@@ -28,17 +28,11 @@ var mana: int = 100:
 		else:
 			mana = new_mana
 
-var entity_name: String = ""
-
 var base_damage: int = 0
 
 var turns_to_move: int = 1
 
 var layer: Layer
-
-
-func _init(_layer: Layer):
-	layer = _layer
 
 
 ## Callback called when the enters the field of view of the player.
@@ -95,7 +89,6 @@ func load(data: Dictionary) -> void:
 		self,
 		data,
 		[
-			"entity_name",
 			"max_health",
 			"health",
 			"max_mana",
@@ -110,4 +103,12 @@ func load(data: Dictionary) -> void:
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	result["max_health"] = max_health
+	result["health"] = health
+	result["max_mana"] = max_mana
+	result["mana"] = mana
+	result["base_damage"] = base_damage
+	result["turns_to_move"] = turns_to_move
+
 	return result

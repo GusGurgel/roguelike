@@ -4,6 +4,7 @@ class_name Item
 var usable: bool = false
 var equippable: bool = false
 var equipped: bool = false
+var rarity: int = 1
 
 signal on_unequip
 

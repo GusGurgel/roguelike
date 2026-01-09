@@ -1,0 +1,500 @@
+{
+	"layer_list": {
+		"Ashen Entrance": {
+			"entities": {
+
+			},
+			"items": {
+
+			},
+			"tiles": {
+
+			}
+		},
+		"current_layer_key": "Ashen Entrance"
+	},
+	"player": {
+		"base_damage": 0,
+		"color": "",
+		"grid_position": {
+			"x": 0,
+			"y": 0
+		},
+		"has_collision": false,
+		"health": 100,
+		"is_explored": true,
+		"is_in_view": true,
+		"is_transparent": true,
+		"mana": 100,
+		"max_health": 100,
+		"max_mana": 100,
+		"texture": "ashen_knight_1767919819",
+		"tile_name": "ashen_knight",
+		"turns_to_move": 5
+	},
+	"textures": {
+		"ash_ghoul_1767919882": {
+			"x": 29,
+			"y": 9
+		},
+		"ash_infused_polearm_1767919853": {
+			"x": 35,
+			"y": 5
+		},
+		"ashen_behemoth_1767919878": {
+			"x": 31,
+			"y": 6
+		},
+		"ashen_colossus_1767919887": {
+			"x": 31,
+			"y": 6
+		},
+		"ashen_core_cannon_1767919858": {
+			"x": 38,
+			"y": 3
+		},
+		"ashen_dagger_1767919832": {
+			"x": 36,
+			"y": 7
+		},
+		"ashen_hand_axe_1767919839": {
+			"x": 41,
+			"y": 8
+		},
+		"ashen_harbinger_1767919881": {
+			"x": 30,
+			"y": 0
+		},
+		"ashen_ironclad_1767919894": {
+			"x": 30,
+			"y": 0
+		},
+		"ashen_knight_1767919819": {
+			"x": 28,
+			"y": 0
+		},
+		"ashen_knight_1767919868": {
+			"x": 30,
+			"y": 0
+		},
+		"ashen_marauder_1767919870": {
+			"x": 29,
+			"y": 9
+		},
+		"ashen_mindflayer_1767919884": {
+			"x": 29,
+			"y": 9
+		},
+		"ashen_phantom_1767919876": {
+			"x": 24,
+			"y": 7
+		},
+		"ashen_rat_1767919864": {
+			"x": 27,
+			"y": 8
+		},
+		"ashen_sentinel_elite_1767919891": {
+			"x": 29,
+			"y": 9
+		},
+		"ashen_sorcerer_1767919873": {
+			"x": 24,
+			"y": 0
+		},
+		"ashen_staff_1767919844": {
+			"x": 35,
+			"y": 4
+		},
+		"ashen_stone_floor_1767919821": {
+			"x": 19,
+			"y": 1
+		},
+		"ashen_wisp_1767919862": {
+			"x": 24,
+			"y": 7
+		},
+		"ashenfire_crossbow_1767919849": {
+			"x": 38,
+			"y": 5
+		},
+		"bent_spear_1767919835": {
+			"x": 35,
+			"y": 5
+		},
+		"blackened_wall_1767919820": {
+			"x": 1,
+			"y": 13
+		},
+		"broken_warhammer_1767919841": {
+			"x": 37,
+			"y": 7
+		},
+		"catacomb_floor_1767919827": {
+			"x": 5,
+			"y": 2
+		},
+		"catacomb_wall_1767919826": {
+			"x": 1,
+			"y": 13
+		},
+		"cathedrals_dirge_greatsword_1767919861": {
+			"x": 36,
+			"y": 8
+		},
+		"charcoal_bow_1767919836": {
+			"x": 41,
+			"y": 6
+		},
+		"charred_recurve_bow_1767919854": {
+			"x": 44,
+			"y": 3
+		},
+		"cinder_archer_1767919871": {
+			"x": 27,
+			"y": 2
+		},
+		"cinder_bat_swarm_1767919893": {
+			"x": 26,
+			"y": 8
+		},
+		"cinder_harbinger_1767919885": {
+			"x": 29,
+			"y": 9
+		},
+		"cinder_hound_1767919866": {
+			"x": 31,
+			"y": 7
+		},
+		"cinder_lich_1767919880": {
+			"x": 27,
+			"y": 3
+		},
+		"cinder_titan_1767919890": {
+			"x": 31,
+			"y": 6
+		},
+		"cinder_wrapped_warhammer_1767919851": {
+			"x": 37,
+			"y": 7
+		},
+		"core_floor_1767919831": {
+			"x": 5,
+			"y": 2
+		},
+		"core_wall_1767919830": {
+			"x": 10,
+			"y": 18
+		},
+		"corroded_flail_1767919845": {
+			"x": 35,
+			"y": 5
+		},
+		"cracked_shortsword_1767919833": {
+			"x": 34,
+			"y": 9
+		},
+		"crimson_warden_1767919875": {
+			"x": 31,
+			"y": 6
+		},
+		"crumbling_floor_1767919825": {
+			"x": 19,
+			"y": 1
+		},
+		"crumbling_scout_1767919863": {
+			"x": 29,
+			"y": 9
+		},
+		"crumbling_wall_1767919824": {
+			"x": 1,
+			"y": 13
+		},
+		"dusty_urchin_1767919865": {
+			"x": 29,
+			"y": 9
+		},
+		"ember_lich_queen_1767919888": {
+			"x": 29,
+			"y": 9
+		},
+		"ember_lurker_1767919877": {
+			"x": 28,
+			"y": 5
+		},
+		"ember_shard_floor_1767919829": {
+			"x": 19,
+			"y": 1
+		},
+		"ember_shard_wall_1767919828": {
+			"x": 12,
+			"y": 17
+		},
+		"ember_spriggan_1767919867": {
+			"x": 27,
+			"y": 2
+		},
+		"ember_touched_torch_1767919840": {
+			"x": 43,
+			"y": 3
+		},
+		"emberheart_blade_1767919857": {
+			"x": 35,
+			"y": 8
+		},
+		"embersteel_greatsword_1767919848": {
+			"x": 36,
+			"y": 8
+		},
+		"first_ember_bow_1767919860": {
+			"x": 38,
+			"y": 6
+		},
+		"flint_throwing_knife_1767919837": {
+			"x": 34,
+			"y": 6
+		},
+		"gilded_dusk_dagger_1767919855": {
+			"x": 33,
+			"y": 6
+		},
+		"iron_pike_1767919846": {
+			"x": 35,
+			"y": 5
+		},
+		"lead_filled_slingshot_1767919843": {
+			"x": 39,
+			"y": 5
+		},
+		"rusted_mace_1767919834": {
+			"x": 39,
+			"y": 3
+		},
+		"sanctum_sentinel_halberd_1767919856": {
+			"x": 36,
+			"y": 8
+		},
+		"smoke_serpent_1767919883": {
+			"x": 27,
+			"y": 2
+		},
+		"smoldering_sentinel_1767919872": {
+			"x": 31,
+			"y": 6
+		},
+		"sooty_crossbow_1767919838": {
+			"x": 38,
+			"y": 5
+		},
+		"soul_shard_wand_1767919852": {
+			"x": 35,
+			"y": 4
+		},
+		"veil_bound_rapier_1767919847": {
+			"x": 32,
+			"y": 6
+		},
+		"veiled_floor_1767919823": {
+			"x": 19,
+			"y": 1
+		},
+		"veiled_priest_1767919869": {
+			"x": 31,
+			"y": 1
+		},
+		"veiled_wall_1767919822": {
+			"x": 1,
+			"y": 13
+		},
+		"veiled_whisper_staff_1767919859": {
+			"x": 35,
+			"y": 4
+		},
+		"void_cultist_1767919879": {
+			"x": 31,
+			"y": 1
+		},
+		"void_etched_longbow_1767919850": {
+			"x": 41,
+			"y": 6
+		},
+		"void_reaver_1767919889": {
+			"x": 29,
+			"y": 9
+		},
+		"void_shade_1767919886": {
+			"x": 24,
+			"y": 7
+		},
+		"void_wisp_1767919892": {
+			"x": 27,
+			"y": 8
+		},
+		"voidling_1767919874": {
+			"x": 29,
+			"y": 9
+		},
+		"worn_longbow_1767919842": {
+			"x": 38,
+			"y": 6
+		}
+	},
+	"tiles_presets": {
+		"ashen_stone_floor_1767919820": {
+			"color": "#2A2A2A",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "ashen_stone_floor_1767919821",
+			"tile_name": "ashen_stone_floor"
+		},
+		"blackened_wall_1767919819": {
+			"color": "#1C1C1C",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "blackened_wall_1767919820",
+			"tile_name": "blackened_wall"
+		},
+		"catacomb_floor_1767919826": {
+			"color": "#2B2B2B",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "catacomb_floor_1767919827",
+			"tile_name": "catacomb_floor"
+		},
+		"catacomb_wall_1767919825": {
+			"color": "#1A1A1A",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "catacomb_wall_1767919826",
+			"tile_name": "catacomb_wall"
+		},
+		"core_floor_1767919830": {
+			"color": "#7B2E2E",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "core_floor_1767919831",
+			"tile_name": "core_floor"
+		},
+		"core_wall_1767919829": {
+			"color": "#4F0D0D",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "core_wall_1767919830",
+			"tile_name": "core_wall"
+		},
+		"crumbling_floor_1767919824": {
+			"color": "#4A2E2E",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "crumbling_floor_1767919825",
+			"tile_name": "crumbling_floor"
+		},
+		"crumbling_wall_1767919823": {
+			"color": "#3A1F1F",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "crumbling_wall_1767919824",
+			"tile_name": "crumbling_wall"
+		},
+		"ember_shard_floor_1767919828": {
+			"color": "#5C1A1A",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "ember_shard_floor_1767919829",
+			"tile_name": "ember_shard_floor"
+		},
+		"ember_shard_wall_1767919827": {
+			"color": "#3E0F0F",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "ember_shard_wall_1767919828",
+			"tile_name": "ember_shard_wall"
+		},
+		"veiled_floor_1767919822": {
+			"color": "#3B3B1F",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": false,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "veiled_floor_1767919823",
+			"tile_name": "veiled_floor"
+		},
+		"veiled_wall_1767919821": {
+			"color": "#2F2F2F",
+			"grid_position": {
+				"x": 0,
+				"y": 0
+			},
+			"has_collision": true,
+			"is_explored": false,
+			"is_in_view": false,
+			"is_transparent": false,
+			"texture": "veiled_wall_1767919822",
+			"tile_name": "veiled_wall"
+		}
+	},
+	"turn": 0
+}

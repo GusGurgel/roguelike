@@ -30,5 +30,9 @@ func load(data: Dictionary) -> void:
 
 
 func serialize() -> Dictionary:
-	var result: Dictionary = {}
+	var result: Dictionary = super.serialize()
+
+	for tile_preset_key in tiles_presets:
+		result[tile_preset_key] = tiles_presets[tile_preset_key].serialize()
+
 	return result

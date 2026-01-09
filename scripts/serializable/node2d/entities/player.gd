@@ -30,7 +30,8 @@ var range_weapon: RangeWeapon = null:
 
 var level: int = 0
 var experience: int = 0
-var damage_multiplier = 0
+var damage_multiplier: float = 0
+var back_history: String = ""
 
 var mouse_grid_position: Vector2i = Vector2i.ZERO
 var under_mouse_tile_info: String = ""
@@ -137,17 +138,17 @@ func _handle_use_range_weapon(event_key: InputEventKey) -> void:
 				if is_enemy_dead:
 					Globals.game_ui.prompt_text(
 						"[color=#88A8C5]%s[/color] kills [color=#d37073]%s[/color] using a %s." % \
-						[entity_name, close_enemy.entity_name, range_weapon.tile_name]
+						[tile_name, close_enemy.tile_name, range_weapon.tile_name]
 					)
 				else:
 					Globals.game_ui.prompt_text(
 						"[color=#88A8C5]%s[/color] hits [color=#d37073]%s[/color] using a %s. (Damage: %d; %s Life: %d)." % \
 						[
-							entity_name,
-							close_enemy.entity_name,
+							tile_name,
+							close_enemy.tile_name,
 							range_weapon.tile_name,
 							get_range_damage(),
-							close_enemy.entity_name,
+							close_enemy.tile_name,
 							close_enemy.health
 						]
 					)
@@ -217,17 +218,17 @@ func _handle_movement(event_key: InputEventKey):
 					if is_enemy_dead:
 						Globals.game_ui.prompt_text(
 							"[color=#88A8C5]%s[/color] kills [color=#d37073]%s[/color] using %s." % \
-							[entity_name, enemy.entity_name, weapon_name]
+							[tile_name, enemy.tile_name, weapon_name]
 						)
 					else:
 						Globals.game_ui.prompt_text(
 							"[color=#88A8C5]%s[/color] hits [color=#d37073]%s[/color] using %s. (Damage: %d; %s Life: %d)." % \
 							[
-								entity_name,
-								enemy.entity_name,
+								tile_name,
+								enemy.tile_name,
 								weapon_name,
 								get_melee_damage(),
-								enemy.entity_name,
+								enemy.tile_name,
 								enemy.health
 							]
 						)
@@ -251,8 +252,8 @@ func get_hit(entity: Entity, damage: int) -> bool:
 	Globals.game_ui.prompt_text(
 		"[color=#d37073]%s[/color] hits [color=#88A8C5]%s[/color]. (Damage: %d)" % \
 		[
-			entity.entity_name,
-			entity_name,
+			entity.tile_name,
+			tile_name,
 			damage,
 		]
 	)

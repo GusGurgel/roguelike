@@ -76,6 +76,43 @@ var player_config: Dictionary = {
 	"base_melee_damage": 10
 }
 
+var melee_weapons_configuration: Dictionary = {
+	"damage_base": 10,
+	"damage_multiplier_by_rarity": 0.1,
+	"damage_multiplier_by_weight": 0.1,
+	"damage_max": 200,
+
+	"turns_to_use_base": 1,
+	"turns_to_use_multiplier_by_weight": 0.1,
+	"turns_to_user_max": 10
+}
+
+var range_weapons_configuration: Dictionary = {
+	"damage_base": 10,
+	"damage_multiplier_by_rarity": 0.1,
+	"damage_multiplier_by_mana_cost": 0.1,
+	"damage_max": 200,
+
+	"mana_cost_base": 10,
+	"mana_cost_multiplier_by_mana_cost": 0.1,
+	"mana_cost_max": 100
+}
+
+var enemies_configuration: Dictionary = {
+	"health_base": 30,
+	"health_multiplier_by_thread": 0.1,
+	"health_max": 300,
+
+	"damage_base": 10,
+	"damage_multiplier_by_thread": 0.1,
+	"damage_multiplier_by_weight": 0.1,
+	"damage_max": 100,
+
+	"turns_to_move_base": 1,
+	"turns_to_move_multiplier_by_weight": 0.1,
+	"turns_to_move_max": 10
+}
+
 ################################################################################
 # Globals
 ################################################################################
@@ -89,3 +126,28 @@ var astar_grid_region = Rect2i(Vector2i(-100, -100), Vector2i(300, 300))
 var game_viewport_rect = Rect2i(Vector2i.ZERO, Vector2i(800, 357))
 
 var verbose_tile_info = true
+
+var player_defaults = {
+	"is_in_view" = true,
+	"is_transparent" = true,
+	"is_explored" = true,
+	"turns_to_move" = 5,
+	"heal_per_turns" = 1,
+	"regen_per_turns" = 1,
+	"experience" = 0,
+	"base_damage" = 10
+}
+
+var wall_tile_defaults = {
+	"is_in_view" = false,
+	"is_transparent" = false,
+	"is_explored" = false,
+	"has_collision" = true
+}
+
+var floor_tile_defaults = {
+	"is_in_view" = false,
+	"is_transparent" = false,
+	"is_explored" = false,
+	"has_collision" = false
+}

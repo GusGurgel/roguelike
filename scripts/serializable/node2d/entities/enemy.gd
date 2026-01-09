@@ -5,7 +5,9 @@ var last_path: PackedVector2Array = []
 
 var enemy_mode: Globals.EnemyMode = Globals.EnemyMode.ENEMY_WANDERING
 
-var available_turns = 0
+var available_turns: int = 0
+
+var thread: int = 1
 
 
 func _ready():
@@ -46,7 +48,8 @@ func _on_turn_updated(old_turn: int, new_turn: int) -> void:
 
 ## Using A*, step 1 tile to de target position.
 func step(target_position: Vector2i) -> void:
-	var path: PackedVector2Array = layer.astar_grid.get_point_path(grid_position, target_position)
+	var current_layer = Globals.game.layers.get_current_layer()
+	var path: PackedVector2Array = current_layer.astar_grid.get_point_path(grid_position, target_position)
 
 	if len(path) > 1:
 		move_to(path[1])
@@ -54,13 +57,14 @@ func step(target_position: Vector2i) -> void:
 
 # Move to position if possible.
 func move_to(pos: Vector2i) -> void:
-	if Globals.game.layers.get_current_layer().can_move_to_position(pos):
+	var current_layer = Globals.game.layers.get_current_layer()
+	if current_layer.can_move_to_position(pos):
 		# Update entities dictionary
-		layer.entities.entities.erase(Utils.vector2i_to_string(grid_position))
-		layer.entities.entities[Utils.vector2i_to_string(pos)] = self
+		current_layer.entities.entities.erase(Utils.vector2i_to_string(grid_position))
+		current_layer.entities.entities[Utils.vector2i_to_string(pos)] = self
 		# Update astar_grid
-		layer.astar_grid.set_point_solid(grid_position, false) # free old location
-		layer.astar_grid.set_point_solid(pos, true) # block new location
+		current_layer.astar_grid.set_point_solid(grid_position, false) # free old location
+		current_layer.astar_grid.set_point_solid(pos, true) # block new location
 		grid_position = pos
 
 ################################################################################

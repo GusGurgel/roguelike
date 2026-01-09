@@ -37,7 +37,7 @@ func get_info() -> String:
 	var info: String = super.get_info()
 
 	info += """\nDamage: %s
-Mana Cost: %s """ % [ damage, mana_cost ]
+Mana Cost: %s """ % [damage, mana_cost]
 
 	return info
 

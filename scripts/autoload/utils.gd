@@ -125,7 +125,7 @@ func dict_has_and_is_equal_lower_string(dict: Dictionary, key: String, value: St
 ## If the property exists in the dictionary and is in properties, it is copied.
 ## If it doesn't exist and is in warning, a warning is logged.
 func copy_from_dict_if_exists(
-		node: Node,
+		node: Object,
 		dictionary: Dictionary,
 		properties: PackedStringArray = [],
 		warning: PackedStringArray = []

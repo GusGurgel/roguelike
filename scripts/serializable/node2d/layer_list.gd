@@ -57,5 +57,11 @@ func load(data: Dictionary) -> void:
 
 
 func serialize() -> Dictionary:
-	var result: Dictionary = {}
+	var result: Dictionary = super.serialize()
+	
+	result["current_layer_key"] = current_layer_key
+
+	for layer_key in layers:
+		result[layer_key] = layers[layer_key].serialize()
+
 	return result

@@ -1,0 +1,235 @@
+extends SerializableResource
+class_name AssetBundle
+
+## User description
+var raw_description: String = ""
+
+## LLM Enhanced theme description
+var description: String = ""
+
+var player_asset: Player = Player.new()
+
+var textures: Dictionary[String, Dictionary] = {}
+
+var dungeon_levels: Array[DungeonLevel] = []
+
+var tile_preset_list: TilePresetList = TilePresetList.new()
+
+var melee_weapons_assets: Array[MeleeWeapon]
+var range_weapons_assets: Array[RangeWeapon]
+var enemies_assets: Array[Enemy]
+
+
+func add_texture(tile_data: Dictionary) -> String:
+	var name = "%s_%d" % [tile_data["name"], int(Time.get_unix_time_from_system() + len(textures))]
+
+	var x: int = clampi(tile_data["texture"]["tileset_position"]["x"], 0, Globals.tileset_count.x)
+	var y: int = clampi(tile_data["texture"]["tileset_position"]["y"], 0, Globals.tileset_count.y)
+
+	textures[name] = {
+		"x": x,
+		"y": y
+	}
+
+	return name
+
+func add_tile_preset(tile: Tile) -> String:
+	var name = "%s_%d" % [tile.tile_name, int(Time.get_unix_time_from_system() + len(tile_preset_list.tiles_presets))]
+
+	tile_preset_list.tiles_presets[name] = tile
+
+	return name
+
+
+################################################################################
+# Serialization
+################################################################################
+
+func load_player_tile_preset(data: Dictionary) -> void:
+	player_asset.tile_name = data["tile"]["name"]
+	player_asset.tile_description = data["tile"]["description"]
+	var texture_name: String = add_texture(data["tile_with_texture"])
+	player_asset.texture_name = texture_name
+
+	player_asset.back_history = data["back_history"]
+
+	Utils.copy_from_dict_if_exists(
+		player_asset,
+		Globals.player_defaults,
+		Globals.player_defaults.keys()
+	)
+
+
+func load_dungeon_levels(data: Array) -> void:
+	for dungeon_level_data in data:
+		var dungeon_level = DungeonLevel.new()
+
+		var wall_tile = Tile.new()
+		Utils.copy_from_dict_if_exists(
+			wall_tile,
+			Globals.wall_tile_defaults,
+			Globals.wall_tile_defaults.keys()
+		)
+		wall_tile.tile_description = dungeon_level_data["wall_tile_with_texture"]["description"]
+		wall_tile.tile_name = dungeon_level_data["wall_tile_with_texture"]["name"]
+		wall_tile.tile_color_hex = dungeon_level_data["wall_tile_with_texture"]["color"]
+		wall_tile.texture_name = add_texture(
+			dungeon_level_data["wall_tile_with_texture"]
+		)
+
+		var floor_tile = Tile.new()
+		Utils.copy_from_dict_if_exists(
+			floor_tile,
+			Globals.floor_tile_defaults,
+			Globals.floor_tile_defaults.keys()
+		)
+		floor_tile.tile_description = dungeon_level_data["floor_tile_with_texture"]["description"]
+		floor_tile.tile_name = dungeon_level_data["floor_tile_with_texture"]["name"]
+		floor_tile.tile_color_hex = dungeon_level_data["floor_tile_with_texture"]["color"]
+		floor_tile.texture_name = add_texture(
+			dungeon_level_data["floor_tile_with_texture"],
+		)
+
+
+		Utils.copy_from_dict_if_exists(
+			dungeon_level,
+			dungeon_level_data,
+			[
+				"depth",
+				"name",
+				"description"
+			]
+		)
+
+
+		dungeon_level.wall_tile_preset = add_tile_preset(wall_tile)
+		dungeon_level.floor_tile_preset = add_tile_preset(floor_tile)
+
+		dungeon_levels.append(dungeon_level)
+
+func load_weapons(weapons_data: Array) -> void:
+	for weapon_data in weapons_data:
+		var weapon: Item
+
+		if weapon_data["weapon_type"] == "melee":
+			weapon = MeleeWeapon.new()
+			weapon.weight = weapon_data["weight"]
+			weapon.damage = clamp(
+				Globals.melee_weapons_configuration["damage_base"] * \
+				(pow(1 + Globals.melee_weapons_configuration["damage_multiplier_by_rarity"], weapon_data["rarity"]) + \
+				pow(1 + Globals.melee_weapons_configuration["damage_multiplier_by_weight"], weapon_data["weight"])),
+				1,
+				Globals.melee_weapons_configuration["damage_max"]
+			)
+
+			weapon.turns_to_use = clampi(
+				Globals.melee_weapons_configuration["turns_to_use_base"] * \
+				pow(1 + Globals.melee_weapons_configuration["turns_to_use_base"], weapon_data["weight"]),
+				1,
+				Globals.melee_weapons_configuration["turns_to_user_max"]
+			)
+			melee_weapons_assets.append(weapon)
+
+		elif weapon_data["weapon_type"] == "range":
+			weapon = RangeWeapon.new()
+			weapon.damage = clampi(
+				Globals.range_weapons_configuration["damage_base"] * \
+				(pow(1 + Globals.range_weapons_configuration["damage_multiplier_by_rarity"], weapon_data["rarity"]) + \
+				pow(1 + Globals.range_weapons_configuration["damage_multiplier_by_mana_cost"], weapon_data["mana_cost"])),
+				1,
+				Globals.range_weapons_configuration["damage_max"]
+			)
+
+			weapon.mana_cost = clampi(
+				Globals.range_weapons_configuration["mana_cost_base"] * \
+				pow(1 + Globals.range_weapons_configuration["mana_cost_multiplier_by_mana_cost"], weapon_data["mana_cost"]),
+				1,
+				Globals.range_weapons_configuration["mana_cost_max"]
+			)
+			range_weapons_assets.append(weapon)
+		
+		weapon.rarity = weapon_data["rarity"]
+		weapon.tile_description = weapon_data["tile_with_texture"]["description"]
+		weapon.tile_name = weapon_data["tile_with_texture"]["name"]
+		weapon.tile_color_hex = weapon_data["tile_with_texture"]["color"]
+		weapon.texture_name = add_texture(
+			weapon_data["tile_with_texture"],
+		)
+
+
+func load_enemies(enemies_data: Array) -> void:
+	for enemy_data in enemies_data:
+		var enemy: Enemy = Enemy.new()
+
+		enemy.max_health = clampi(
+			Globals.enemies_configuration["health_base"] * \
+			pow(1 + Globals.enemies_configuration["health_multiplier_by_thread"], enemy_data["thread"]),
+			1,
+			Globals.enemies_configuration["health_max"]
+		)
+		enemy.health = enemy.max_health
+
+		enemy.turns_to_move = clampi(
+			Globals.enemies_configuration["turns_to_move_base"] * \
+			pow(1 + Globals.enemies_configuration["turns_to_move_multiplier_by_weight"], enemy_data["weight"]),
+			1,
+			Globals.enemies_configuration["turns_to_move_max"]
+		)
+
+
+		enemy.base_damage = clampi(
+			Globals.enemies_configuration["damage_base"] * \
+			pow(1 + Globals.enemies_configuration["damage_multiplier_by_thread"], enemy_data["thread"]) + \
+			pow(1 + Globals.enemies_configuration["damage_multiplier_by_weight"], enemy_data["weight"]),
+			1,
+			Globals.enemies_configuration["damage_max"]
+		)
+
+		enemy.thread = enemy_data["thread"]
+		enemy.tile_description = enemy_data["tile_with_texture"]["description"]
+		enemy.tile_name = enemy_data["tile_with_texture"]["name"]
+		enemy.tile_color_hex = enemy_data["tile_with_texture"]["color"]
+		enemy.texture_name = add_texture(
+			enemy_data["tile_with_texture"],
+		)
+
+		enemies_assets.append(enemy)
+
+func generate_json_game() -> Dictionary:
+	var layers: LayerList = LayerList.new()
+
+	layers.layers[dungeon_levels[0].name] = Layer.new()
+	layers.current_layer_key = layers.layers.keys()[0]
+
+	return {
+		"layer_list": layers.serialize(),
+		"player": player_asset.serialize(),
+		"textures": textures,
+		"tiles_presets": tile_preset_list.serialize(),
+		"turn": 0
+	}
+
+func load(data: Dictionary) -> void:
+	load_player_tile_preset(data["player"])
+
+	load_dungeon_levels(data["dungeon_levels"]["items"])
+
+	load_weapons(data["weapons"]["items"])
+
+	load_enemies(data["enemies"]["items"])
+
+	Utils.copy_from_dict_if_exists(
+		self,
+		data,
+		[
+			"description",
+			"raw_description"
+		]
+	)
+
+	super.load(data)
+
+
+func serialize() -> Dictionary:
+	var result: Dictionary = {}
+	return result

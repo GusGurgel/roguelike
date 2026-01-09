@@ -8,6 +8,8 @@ var tiles: TileList = TileList.new(self)
 var entities: EntityList = EntityList.new(self)
 var items: ItemsList = ItemsList.new(self)
 
+var layer_name: String
+
 
 ## Return all tiles of a grid_position. Including basic tiles and entity tiles.
 func get_tiles(pos: Vector2i) -> Array[Tile]:
@@ -62,5 +64,9 @@ func load(data: Dictionary) -> void:
 	
 
 func serialize() -> Dictionary:
-	var result: Dictionary = {}
+	var result: Dictionary = {
+		"tiles": tiles.serialize(),
+		"entities": entities.serialize(),
+		"items": items.serialize()
+	}
 	return result

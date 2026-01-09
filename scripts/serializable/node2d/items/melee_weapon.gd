@@ -2,6 +2,8 @@ extends Item
 class_name MeleeWeapon
 
 var damage: int = 0
+var turns_to_use: int = 1
+var weight: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

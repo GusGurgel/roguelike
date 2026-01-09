@@ -42,6 +42,7 @@ var texture_name: String = ""
 
 var tile_name: String = ""
 var tile_description: String = ""
+var tile_color_hex: String = ""
 
 
 func _ready():
@@ -143,20 +144,16 @@ func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
 
 	if preset_name != "":
-		result = {
-			preset_name = self.preset_name,
-			is_explored = self.is_explored
-		}
+		result["preset_name"] = self.preset_name
+		result["is_explored"] = self.is_explored
 	else:
-		result = {
-			texture = self.texture,
-			modulate = self.modulate,
-			has_collision = self.has_collision,
-			is_explored = self.is_explored,
-			is_in_view = self.is_in_view,
-			is_transparent = self.is_transparent
-
-		}
+		result["texture"] = self.texture_name
+		result["has_collision"] = self.has_collision
+		result["is_explored"] = self.is_explored
+		result["is_in_view"] = self.is_in_view
+		result["is_transparent"] = self.is_transparent
+		result["tile_name"] = self.tile_name
+		result["color"] = self.tile_color_hex
 	
 	result["grid_position"] = {
 		x = self.grid_position.x,
