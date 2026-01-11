@@ -4,6 +4,10 @@ class_name LayerList
 var layers: Dictionary[String, Layer]
 var current_layer_key: String
 
+func _init():
+	layers["default"] = Layer.new()
+	layers["default"].name = "default"
+	
 
 ## Returns current layer if exists, else returns default layer
 func get_layer(layer_key: String) -> Layer:
@@ -31,12 +35,6 @@ func switch_layer(layer_key: String) -> void:
 func load(data: Dictionary) -> void:
 	super.load(data)
 
-	# Add default layer.
-	var layer_default = Layer.new()
-	layer_default.name = "default"
-	layers["default"] = layer_default
-
-
 	if data.has("layers"):
 		for layer_key in data["layers"]:
 			var layer: Layer = Layer.new()
@@ -61,7 +59,8 @@ func serialize() -> Dictionary:
 	
 	result["current_layer_key"] = current_layer_key
 
+	result["layers"] = {}
 	for layer_key in layers:
-		result[layer_key] = layers[layer_key].serialize()
+		result["layers"][layer_key] = layers[layer_key].serialize()
 
 	return result

@@ -51,14 +51,16 @@ func _ready():
 	is_in_view = is_in_view
 
 
-## Copy information from tile. [br]
-## Considers follows proprieties: texture, has_collision, is_transparent, modulate.
-func copy_basic_proprieties(tile: Tile) -> void:
+## Copy information from a preset. [br]
+func load_properties_from_preset(preset_key: String) -> void:
+	var tile: Tile = Globals.tile_preset_list.get_tile_preset(preset_key)
+
 	self.texture = tile.texture
 	self.has_collision = tile.has_collision
 	self.is_transparent = tile.is_transparent
 	self.modulate = tile.modulate
 	self.tile_name = tile.tile_name
+	self.preset_name = preset_key
 
 
 func get_info() -> String:

@@ -117,6 +117,8 @@ var enemies_configuration: Dictionary = {
 # Globals
 ################################################################################
 
+var tile_preset_list: TilePresetList = TilePresetList.new()
+
 var game: Game = null
 var game_ui: GameUI = null
 var game_data: Dictionary = {}

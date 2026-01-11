@@ -48,11 +48,11 @@ func _ready() -> void:
 ## Set a tile by a preset. [br]
 ## If preset == "", nothing happens.
 func set_tile_by_preset(
-	preset: String,
+	preset_key: String,
 	pos: Vector2i,
 	set_tile_mode: Globals.SetTileMode = Globals.SetTileMode.OVERRIDE_ALL
 ) -> void:
-	if preset == "":
+	if preset_key == "":
 		return
 
 	var tile: Tile
@@ -70,8 +70,8 @@ func set_tile_by_preset(
 			return
 	
 	tile = Tile.new()
-	tile.preset_name = preset
-	tile.copy_basic_proprieties(tiles_presets.get_tile_preset(preset))
+	tile.preset_name = preset_key
+	tile.load_properties_from_preset(preset_key)
 	tile.grid_position = pos
 	layers.get_current_layer().tiles.set_tile(tile)
 

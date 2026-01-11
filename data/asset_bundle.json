@@ -1,21 +1,50 @@
 {
 	"layer_list": {
-		"Ashen Entrance": {
-			"entities": {
+		"current_layer_key": "Ashen Entrance",
+		"layers": {
+			"Ashen Entrance": {
+				"entities": {
 
+				},
+				"items": {
+
+				},
+				"tiles": {
+					"1,1": {
+						"grid_position": {
+							"x": 1,
+							"y": 1
+						},
+						"is_explored": false,
+						"preset_name": "blackened_wall_1768092789"
+					},
+					"2,2": {
+						"grid_position": {
+							"x": 2,
+							"y": 2
+						},
+						"is_explored": false,
+						"preset_name": "ashen_stone_floor_1768092790"
+					}
+				}
 			},
-			"items": {
+			"default": {
+				"entities": {
 
-			},
-			"tiles": {
+				},
+				"items": {
 
+				},
+				"tiles": {
+
+				}
 			}
-		},
-		"current_layer_key": "Ashen Entrance"
+		}
 	},
 	"player": {
-		"base_damage": 0,
-		"color": "",
+		"base_damage": 10,
+		"color": "#2A2A2A",
+		"experience": 0,
 		"grid_position": {
 			"x": 0,
 			"y": 0
@@ -28,318 +57,318 @@
 		"mana": 100,
 		"max_health": 100,
 		"max_mana": 100,
-		"texture": "ashen_knight_1767919819",
+		"texture": "ashen_knight_1768092789",
 		"tile_name": "ashen_knight",
 		"turns_to_move": 5
 	},
 	"textures": {
-		"ash_ghoul_1767919882": {
+		"ash_ghoul_1768092852": {
 			"x": 29,
 			"y": 9
 		},
-		"ash_infused_polearm_1767919853": {
+		"ash_infused_polearm_1768092823": {
 			"x": 35,
 			"y": 5
 		},
-		"ashen_behemoth_1767919878": {
+		"ashen_behemoth_1768092848": {
 			"x": 31,
 			"y": 6
 		},
-		"ashen_colossus_1767919887": {
+		"ashen_colossus_1768092857": {
 			"x": 31,
 			"y": 6
 		},
-		"ashen_core_cannon_1767919858": {
+		"ashen_core_cannon_1768092828": {
 			"x": 38,
 			"y": 3
 		},
-		"ashen_dagger_1767919832": {
+		"ashen_dagger_1768092802": {
 			"x": 36,
 			"y": 7
 		},
-		"ashen_hand_axe_1767919839": {
+		"ashen_hand_axe_1768092809": {
 			"x": 41,
 			"y": 8
 		},
-		"ashen_harbinger_1767919881": {
+		"ashen_harbinger_1768092851": {
 			"x": 30,
 			"y": 0
 		},
-		"ashen_ironclad_1767919894": {
+		"ashen_ironclad_1768092864": {
 			"x": 30,
 			"y": 0
 		},
-		"ashen_knight_1767919819": {
+		"ashen_knight_1768092789": {
 			"x": 28,
 			"y": 0
 		},
-		"ashen_knight_1767919868": {
+		"ashen_knight_1768092838": {
 			"x": 30,
 			"y": 0
 		},
-		"ashen_marauder_1767919870": {
+		"ashen_marauder_1768092840": {
 			"x": 29,
 			"y": 9
 		},
-		"ashen_mindflayer_1767919884": {
+		"ashen_mindflayer_1768092854": {
 			"x": 29,
 			"y": 9
 		},
-		"ashen_phantom_1767919876": {
+		"ashen_phantom_1768092846": {
 			"x": 24,
 			"y": 7
 		},
-		"ashen_rat_1767919864": {
+		"ashen_rat_1768092834": {
 			"x": 27,
 			"y": 8
 		},
-		"ashen_sentinel_elite_1767919891": {
+		"ashen_sentinel_elite_1768092861": {
 			"x": 29,
 			"y": 9
 		},
-		"ashen_sorcerer_1767919873": {
+		"ashen_sorcerer_1768092843": {
 			"x": 24,
 			"y": 0
 		},
-		"ashen_staff_1767919844": {
+		"ashen_staff_1768092814": {
 			"x": 35,
 			"y": 4
 		},
-		"ashen_stone_floor_1767919821": {
+		"ashen_stone_floor_1768092791": {
 			"x": 19,
 			"y": 1
 		},
-		"ashen_wisp_1767919862": {
+		"ashen_wisp_1768092832": {
 			"x": 24,
 			"y": 7
 		},
-		"ashenfire_crossbow_1767919849": {
+		"ashenfire_crossbow_1768092819": {
 			"x": 38,
 			"y": 5
 		},
-		"bent_spear_1767919835": {
+		"bent_spear_1768092805": {
 			"x": 35,
 			"y": 5
 		},
-		"blackened_wall_1767919820": {
+		"blackened_wall_1768092790": {
 			"x": 1,
 			"y": 13
 		},
-		"broken_warhammer_1767919841": {
+		"broken_warhammer_1768092811": {
 			"x": 37,
 			"y": 7
 		},
-		"catacomb_floor_1767919827": {
+		"catacomb_floor_1768092797": {
 			"x": 5,
 			"y": 2
 		},
-		"catacomb_wall_1767919826": {
+		"catacomb_wall_1768092796": {
 			"x": 1,
 			"y": 13
 		},
-		"cathedrals_dirge_greatsword_1767919861": {
+		"cathedrals_dirge_greatsword_1768092831": {
 			"x": 36,
 			"y": 8
 		},
-		"charcoal_bow_1767919836": {
+		"charcoal_bow_1768092806": {
 			"x": 41,
 			"y": 6
 		},
-		"charred_recurve_bow_1767919854": {
+		"charred_recurve_bow_1768092824": {
 			"x": 44,
 			"y": 3
 		},
-		"cinder_archer_1767919871": {
+		"cinder_archer_1768092841": {
 			"x": 27,
 			"y": 2
 		},
-		"cinder_bat_swarm_1767919893": {
+		"cinder_bat_swarm_1768092863": {
 			"x": 26,
 			"y": 8
 		},
-		"cinder_harbinger_1767919885": {
+		"cinder_harbinger_1768092855": {
 			"x": 29,
 			"y": 9
 		},
-		"cinder_hound_1767919866": {
+		"cinder_hound_1768092836": {
 			"x": 31,
 			"y": 7
 		},
-		"cinder_lich_1767919880": {
+		"cinder_lich_1768092850": {
 			"x": 27,
 			"y": 3
 		},
-		"cinder_titan_1767919890": {
+		"cinder_titan_1768092860": {
 			"x": 31,
 			"y": 6
 		},
-		"cinder_wrapped_warhammer_1767919851": {
+		"cinder_wrapped_warhammer_1768092821": {
 			"x": 37,
 			"y": 7
 		},
-		"core_floor_1767919831": {
+		"core_floor_1768092801": {
 			"x": 5,
 			"y": 2
 		},
-		"core_wall_1767919830": {
+		"core_wall_1768092800": {
 			"x": 10,
 			"y": 18
 		},
-		"corroded_flail_1767919845": {
+		"corroded_flail_1768092815": {
 			"x": 35,
 			"y": 5
 		},
-		"cracked_shortsword_1767919833": {
+		"cracked_shortsword_1768092803": {
 			"x": 34,
 			"y": 9
 		},
-		"crimson_warden_1767919875": {
+		"crimson_warden_1768092845": {
 			"x": 31,
 			"y": 6
 		},
-		"crumbling_floor_1767919825": {
+		"crumbling_floor_1768092795": {
 			"x": 19,
 			"y": 1
 		},
-		"crumbling_scout_1767919863": {
+		"crumbling_scout_1768092833": {
 			"x": 29,
 			"y": 9
 		},
-		"crumbling_wall_1767919824": {
+		"crumbling_wall_1768092794": {
 			"x": 1,
 			"y": 13
 		},
-		"dusty_urchin_1767919865": {
+		"dusty_urchin_1768092835": {
 			"x": 29,
 			"y": 9
 		},
-		"ember_lich_queen_1767919888": {
+		"ember_lich_queen_1768092858": {
 			"x": 29,
 			"y": 9
 		},
-		"ember_lurker_1767919877": {
+		"ember_lurker_1768092847": {
 			"x": 28,
 			"y": 5
 		},
-		"ember_shard_floor_1767919829": {
+		"ember_shard_floor_1768092799": {
 			"x": 19,
 			"y": 1
 		},
-		"ember_shard_wall_1767919828": {
+		"ember_shard_wall_1768092798": {
 			"x": 12,
 			"y": 17
 		},
-		"ember_spriggan_1767919867": {
+		"ember_spriggan_1768092837": {
 			"x": 27,
 			"y": 2
 		},
-		"ember_touched_torch_1767919840": {
+		"ember_touched_torch_1768092810": {
 			"x": 43,
 			"y": 3
 		},
-		"emberheart_blade_1767919857": {
+		"emberheart_blade_1768092827": {
 			"x": 35,
 			"y": 8
 		},
-		"embersteel_greatsword_1767919848": {
+		"embersteel_greatsword_1768092818": {
 			"x": 36,
 			"y": 8
 		},
-		"first_ember_bow_1767919860": {
+		"first_ember_bow_1768092830": {
 			"x": 38,
 			"y": 6
 		},
-		"flint_throwing_knife_1767919837": {
+		"flint_throwing_knife_1768092807": {
 			"x": 34,
 			"y": 6
 		},
-		"gilded_dusk_dagger_1767919855": {
+		"gilded_dusk_dagger_1768092825": {
 			"x": 33,
 			"y": 6
 		},
-		"iron_pike_1767919846": {
+		"iron_pike_1768092816": {
 			"x": 35,
 			"y": 5
 		},
-		"lead_filled_slingshot_1767919843": {
+		"lead_filled_slingshot_1768092813": {
 			"x": 39,
 			"y": 5
 		},
-		"rusted_mace_1767919834": {
+		"rusted_mace_1768092804": {
 			"x": 39,
 			"y": 3
 		},
-		"sanctum_sentinel_halberd_1767919856": {
+		"sanctum_sentinel_halberd_1768092826": {
 			"x": 36,
 			"y": 8
 		},
-		"smoke_serpent_1767919883": {
+		"smoke_serpent_1768092853": {
 			"x": 27,
 			"y": 2
 		},
-		"smoldering_sentinel_1767919872": {
+		"smoldering_sentinel_1768092842": {
 			"x": 31,
 			"y": 6
 		},
-		"sooty_crossbow_1767919838": {
+		"sooty_crossbow_1768092808": {
 			"x": 38,
 			"y": 5
 		},
-		"soul_shard_wand_1767919852": {
+		"soul_shard_wand_1768092822": {
 			"x": 35,
 			"y": 4
 		},
-		"veil_bound_rapier_1767919847": {
+		"veil_bound_rapier_1768092817": {
 			"x": 32,
 			"y": 6
 		},
-		"veiled_floor_1767919823": {
+		"veiled_floor_1768092793": {
 			"x": 19,
 			"y": 1
 		},
-		"veiled_priest_1767919869": {
+		"veiled_priest_1768092839": {
 			"x": 31,
 			"y": 1
 		},
-		"veiled_wall_1767919822": {
+		"veiled_wall_1768092792": {
 			"x": 1,
 			"y": 13
 		},
-		"veiled_whisper_staff_1767919859": {
+		"veiled_whisper_staff_1768092829": {
 			"x": 35,
 			"y": 4
 		},
-		"void_cultist_1767919879": {
+		"void_cultist_1768092849": {
 			"x": 31,
 			"y": 1
 		},
-		"void_etched_longbow_1767919850": {
+		"void_etched_longbow_1768092820": {
 			"x": 41,
 			"y": 6
 		},
-		"void_reaver_1767919889": {
+		"void_reaver_1768092859": {
 			"x": 29,
 			"y": 9
 		},
-		"void_shade_1767919886": {
+		"void_shade_1768092856": {
 			"x": 24,
 			"y": 7
 		},
-		"void_wisp_1767919892": {
+		"void_wisp_1768092862": {
 			"x": 27,
 			"y": 8
 		},
-		"voidling_1767919874": {
+		"voidling_1768092844": {
 			"x": 29,
 			"y": 9
 		},
-		"worn_longbow_1767919842": {
+		"worn_longbow_1768092812": {
 			"x": 38,
 			"y": 6
 		}
 	},
 	"tiles_presets": {
-		"ashen_stone_floor_1767919820": {
+		"ashen_stone_floor_1768092790": {
 			"color": "#2A2A2A",
 			"grid_position": {
 				"x": 0,
@@ -349,10 +378,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "ashen_stone_floor_1767919821",
+			"texture": "ashen_stone_floor_1768092791",
 			"tile_name": "ashen_stone_floor"
 		},
-		"blackened_wall_1767919819": {
+		"blackened_wall_1768092789": {
 			"color": "#1C1C1C",
 			"grid_position": {
 				"x": 0,
@@ -362,10 +391,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "blackened_wall_1767919820",
+			"texture": "blackened_wall_1768092790",
 			"tile_name": "blackened_wall"
 		},
-		"catacomb_floor_1767919826": {
+		"catacomb_floor_1768092796": {
 			"color": "#2B2B2B",
 			"grid_position": {
 				"x": 0,
@@ -375,10 +404,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "catacomb_floor_1767919827",
+			"texture": "catacomb_floor_1768092797",
 			"tile_name": "catacomb_floor"
 		},
-		"catacomb_wall_1767919825": {
+		"catacomb_wall_1768092795": {
 			"color": "#1A1A1A",
 			"grid_position": {
 				"x": 0,
@@ -388,10 +417,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "catacomb_wall_1767919826",
+			"texture": "catacomb_wall_1768092796",
 			"tile_name": "catacomb_wall"
 		},
-		"core_floor_1767919830": {
+		"core_floor_1768092800": {
 			"color": "#7B2E2E",
 			"grid_position": {
 				"x": 0,
@@ -401,10 +430,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "core_floor_1767919831",
+			"texture": "core_floor_1768092801",
 			"tile_name": "core_floor"
 		},
-		"core_wall_1767919829": {
+		"core_wall_1768092799": {
 			"color": "#4F0D0D",
 			"grid_position": {
 				"x": 0,
@@ -414,10 +443,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "core_wall_1767919830",
+			"texture": "core_wall_1768092800",
 			"tile_name": "core_wall"
 		},
-		"crumbling_floor_1767919824": {
+		"crumbling_floor_1768092794": {
 			"color": "#4A2E2E",
 			"grid_position": {
 				"x": 0,
@@ -427,10 +456,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "crumbling_floor_1767919825",
+			"texture": "crumbling_floor_1768092795",
 			"tile_name": "crumbling_floor"
 		},
-		"crumbling_wall_1767919823": {
+		"crumbling_wall_1768092793": {
 			"color": "#3A1F1F",
 			"grid_position": {
 				"x": 0,
@@ -440,10 +469,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "crumbling_wall_1767919824",
+			"texture": "crumbling_wall_1768092794",
 			"tile_name": "crumbling_wall"
 		},
-		"ember_shard_floor_1767919828": {
+		"ember_shard_floor_1768092798": {
 			"color": "#5C1A1A",
 			"grid_position": {
 				"x": 0,
@@ -453,10 +482,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "ember_shard_floor_1767919829",
+			"texture": "ember_shard_floor_1768092799",
 			"tile_name": "ember_shard_floor"
 		},
-		"ember_shard_wall_1767919827": {
+		"ember_shard_wall_1768092797": {
 			"color": "#3E0F0F",
 			"grid_position": {
 				"x": 0,
@@ -466,10 +495,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "ember_shard_wall_1767919828",
+			"texture": "ember_shard_wall_1768092798",
 			"tile_name": "ember_shard_wall"
 		},
-		"veiled_floor_1767919822": {
+		"veiled_floor_1768092792": {
 			"color": "#3B3B1F",
 			"grid_position": {
 				"x": 0,
@@ -479,10 +508,10 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "veiled_floor_1767919823",
+			"texture": "veiled_floor_1768092793",
 			"tile_name": "veiled_floor"
 		},
-		"veiled_wall_1767919821": {
+		"veiled_wall_1768092791": {
 			"color": "#2F2F2F",
 			"grid_position": {
 				"x": 0,
@@ -492,7 +521,7 @@
 			"is_explored": false,
 			"is_in_view": false,
 			"is_transparent": false,
-			"texture": "veiled_wall_1767919822",
+			"texture": "veiled_wall_1768092792",
 			"tile_name": "veiled_wall"
 		}
 	},

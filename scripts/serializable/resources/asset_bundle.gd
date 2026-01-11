@@ -45,10 +45,11 @@ func add_tile_preset(tile: Tile) -> String:
 # Serialization
 ################################################################################
 
-func load_player_tile_preset(data: Dictionary) -> void:
+func load_player(data: Dictionary) -> void:
 	player_asset.tile_name = data["tile"]["name"]
 	player_asset.tile_description = data["tile"]["description"]
 	var texture_name: String = add_texture(data["tile_with_texture"])
+	player_asset.tile_color_hex = data["tile_with_texture"]["color"]
 	player_asset.texture_name = texture_name
 
 	player_asset.back_history = data["back_history"]
@@ -195,11 +196,22 @@ func load_enemies(enemies_data: Array) -> void:
 
 		enemies_assets.append(enemy)
 
+
+## Return a complete random generated game based on the asset_bundle
 func generate_json_game() -> Dictionary:
+	## Set the current tile preset on Globals
+	Globals.tile_preset_list = tile_preset_list
+
 	var layers: LayerList = LayerList.new()
 
 	layers.layers[dungeon_levels[0].name] = Layer.new()
-	layers.current_layer_key = layers.layers.keys()[0]
+	layers.current_layer_key = layers.layers.keys()[1]
+
+	var current_layer = layers.get_current_layer()
+
+	var first_dungeon_level: DungeonLevel = dungeon_levels[0]
+	current_layer.set_tile_by_preset(first_dungeon_level.wall_tile_preset, Vector2i(1, 1))
+	current_layer.set_tile_by_preset(first_dungeon_level.floor_tile_preset, Vector2i(2, 2))
 
 	return {
 		"layer_list": layers.serialize(),
@@ -210,7 +222,7 @@ func generate_json_game() -> Dictionary:
 	}
 
 func load(data: Dictionary) -> void:
-	load_player_tile_preset(data["player"])
+	load_player(data["player"])
 
 	load_dungeon_levels(data["dungeon_levels"]["items"])
 

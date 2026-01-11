@@ -360,4 +360,5 @@ func load(data: Dictionary) -> void:
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+	result["experience"] = experience
 	return result
