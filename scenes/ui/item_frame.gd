@@ -28,7 +28,7 @@ func _ready() -> void:
 		equipe_button.visible = false
 	
 	texture_rect.texture = item.texture
-	texture_rect.self_modulate = item.modulate
+	texture_rect.self_modulate = item.self_modulate
 	name_label.text = item.tile_name
 
 	drop_button.button_down.connect(_on_drop_button_down)

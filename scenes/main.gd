@@ -32,6 +32,7 @@ func load_game_from_dict(dict: Dictionary, _game_ui: GameUI) -> Game:
 
 	return _game
 
+
 func _ready() -> void:
 	var json_loader: JSONLoader = JSONLoader.new()
 	json_loader.load_from_path("res://data/dark_souls_asset_bundle.json")
@@ -47,18 +48,6 @@ func _ready() -> void:
 	game.player.set_description_frame(description_frame)
 	game_viewport.add_child(game)
 
-	var timer: Timer = Timer.new()
-	timer.wait_time = 3
-	timer.autostart = true
-	timer.timeout.connect(next_layer)
-
-
-	print("Current: " + game.layers.current_layer_key)
-	game.layers.switch_layer(game.layers.layers_keys_ordered[0])
-	game.player.grid_position = game.layers.get_current_layer().rooms[0].get_center()
-
-	add_child(timer)
-
 
 func next_layer() -> void:
 	game.layers.switch_layer(game.layers.next_layer_key)
@@ -66,16 +55,16 @@ func next_layer() -> void:
 	game.player.update_fov()
 	print("Current: " + game.layers.current_layer_key)
 
-# func _unhandled_input(event: InputEvent) -> void:
-# 	var event_key = event as InputEventKey
 
-# 	if event_key and event_key.pressed and not event_key.echo and event_key.keycode == KEY_SPACE:
-# 		game.set_tile_by_preset("brick_wall", game.player.grid_position + Vector2i.UP)
+func _unhandled_input(event: InputEvent) -> void:
+	var event_key = event as InputEventKey
 
+	if event_key and event_key.pressed and not event_key.echo and event_key.keycode == KEY_SPACE:
+		next_layer()
 
-func _notification(what: int):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		pass
+# func _notification(what: int):
+# 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+# 		pass
 
 
 func generate_dungeon() -> void:

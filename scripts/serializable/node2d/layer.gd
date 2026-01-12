@@ -16,6 +16,7 @@ var dungeon_level: DungeonLevel
 func _init():
 	astar_grid.region = Globals.astar_grid_region
 	astar_grid.update()
+	z_index = -1
 
 
 ## Return all tiles of a grid_position. Including basic tiles and entity tiles.

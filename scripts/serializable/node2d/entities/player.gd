@@ -38,6 +38,9 @@ var under_mouse_tile_info: String = ""
 
 var description_frame: DescriptionFrame
 
+func _init():
+	super._init(true)
+
 func _ready():
 	super._ready()
 

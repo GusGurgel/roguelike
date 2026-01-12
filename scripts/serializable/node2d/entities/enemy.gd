@@ -9,6 +9,8 @@ var available_turns: int = 0
 
 var thread: int = 1
 
+func _init():
+	super._init(true)
 
 func _ready():
 	super._ready()

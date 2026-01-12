@@ -8,6 +8,16 @@ var tileset_size: Vector2i = Vector2i(784, 352)
 var tile_size: Vector2i = Vector2i(16, 16)
 var tileset_count: Vector2i = tileset_size / tile_size
 var default_texture: Vector2i = Vector2i(21, 9)
+var blank_atlas_texture: AtlasTexture = AtlasTexture.new()
+
+func _ready():
+	blank_atlas_texture.region = Rect2(
+		48 * Globals.tile_size.x,
+		0 * Globals.tile_size.y,
+		Globals.tile_size.x,
+		Globals.tile_size.y
+	)
+	blank_atlas_texture.atlas = monochrome_texture
 
 ################################################################################
 # Enums

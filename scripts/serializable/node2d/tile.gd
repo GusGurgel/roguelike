@@ -4,6 +4,15 @@ class_name Tile
 signal tile_grid_position_change(old_pos: Vector2i, new_pos: Vector2i)
 
 
+func _init(add_background: bool = false):
+	if add_background:
+		var background = Sprite2D.new()
+		background.texture = Globals.blank_atlas_texture
+		background.self_modulate = Color(0, 0, 0, 0.5)
+		background.z_index = -1
+		background.centered = false
+		add_child(background)
+
 var grid_position: Vector2i = Vector2i(0, 0):
 	set(new_grid_position):
 		var old_grid_position: Vector2i = grid_position
@@ -25,10 +34,10 @@ var is_in_view: bool = false:
 		if new_is_in_view:
 			is_explored = true
 			visible = true
-			modulate.a = 1
+			self_modulate.a = 1
 		else:
 			if is_explored:
-				modulate.a = 0.4
+				self_modulate.a = 0.4
 			else:
 				visible = false
 
@@ -58,7 +67,7 @@ func load_properties_from_preset(preset_key: String) -> void:
 	self.texture = tile.texture
 	self.has_collision = tile.has_collision
 	self.is_transparent = tile.is_transparent
-	self.modulate = tile.modulate
+	self.self_modulate = tile.self_modulate
 	self.tile_name = tile.tile_name
 	self.preset_name = preset_key
 
@@ -102,7 +111,7 @@ func load(data: Dictionary) -> void:
 			texture_name = tile_preset.texture_name
 			has_collision = tile_preset.has_collision
 			is_transparent = tile_preset.is_transparent
-			modulate = tile_preset.modulate
+			self_modulate = tile_preset.self_modulate
 			tile_name = tile_preset.tile_name
 			tile_description = tile_preset.tile_description
 		else:
@@ -126,7 +135,7 @@ func load(data: Dictionary) -> void:
 			Utils.print_warning("Invalid color hex '%s' on tile." % data["color"])
 		if data.has("texture"):
 			texture = game.textures.get_texture_monochrome(data["texture"])
-		modulate = Color(data["color"])
+		self_modulate = Color(data["color"])
 	
 	Utils.copy_from_dict_if_exists(
 		self,
