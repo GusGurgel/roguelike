@@ -1,4 +1,4 @@
 extends ScrollContainer
 class_name DescriptionFrame
 
-@export var description_label : Label
+@export var description_label : RichTextLabel

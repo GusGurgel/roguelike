@@ -1,16 +1,23 @@
 extends Entity
 class_name Enemy
 
-var last_path: PackedVector2Array = []
-
 var enemy_mode: Globals.EnemyMode = Globals.EnemyMode.ENEMY_WANDERING
 
 var available_turns: int = 0
 
-var thread: int = 1
+var thread: int = 1:
+	set(new_thread):
+		thread = clampi(new_thread, 1, 10)
+
+var weight: int = 1:
+	set(new_weight):
+		thread = clampi(new_weight, 1, 10)
 
 func _init():
 	super._init(true)
+
+	has_collision = true
+	is_transparent = false
 
 func _ready():
 	super._ready()
@@ -69,6 +76,32 @@ func move_to(pos: Vector2i) -> void:
 		current_layer.astar_grid.set_point_solid(pos, true) # block new location
 		grid_position = pos
 
+
+func copy(enemy) -> void:
+	super.copy(enemy)
+
+	enemy_mode = enemy.enemy_mode
+	thread = enemy.thread
+	weight = enemy.weight
+
+
+static func clone(entity) -> Variant:
+	var result_enemy = Enemy.new()
+	result_enemy.copy(entity)
+
+	return result_enemy
+
+
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info = Utils.append_info_line(info, {
+		"Thread": str(thread),
+		"Weight": str(weight)
+	})
+
+	return info
+	
 ################################################################################
 # Serialization
 ################################################################################
@@ -76,7 +109,21 @@ func move_to(pos: Vector2i) -> void:
 func load(data: Dictionary) -> void:
 	super.load(data)
 
+	Utils.copy_from_dict_if_exists(
+		self,
+		data,
+		[
+			"thread",
+			"weight"
+		]
+	)
+
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	result["thread"] = thread
+	result["weight"] = weight
+	result["type"] = "enemy"
+
 	return result

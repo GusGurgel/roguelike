@@ -69,9 +69,7 @@ func set_tile_by_preset(
 		if not Utils.any_of_array_has_propriety_with_value(current_tiles, "has_collision", false):
 			return
 	
-	tile = Tile.new()
-	tile.preset_name = preset_key
-	tile.load_properties_from_preset(preset_key)
+	tile = Tile.from_tile_preset(preset_key)
 	tile.grid_position = pos
 	layers.get_current_layer().tiles.set_tile(tile)
 

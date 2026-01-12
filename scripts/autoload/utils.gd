@@ -61,6 +61,15 @@ func is_border(rect: Rect2i, pos: Vector2i) -> bool:
 		|| pos.y == rect.position.y + rect.size.y - 1
 	)
 
+func append_info_line(info_text: String, values: Dictionary[String, String]) -> String:
+	for key in values:
+		if values[key] == "":
+			continue
+		if info_text != "":
+			info_text += "\n"
+		info_text += "• [b]%s[/b]: [i]%s[/i]" % [key, values[key]]
+	
+	return info_text
 
 ## Return a random Vector2i direction.
 func get_random_direction() -> Vector2i:

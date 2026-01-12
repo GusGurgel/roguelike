@@ -116,7 +116,7 @@ var enemies_configuration: Dictionary = {
 	"health_multiplier_by_thread": 0.1,
 	"health_max": 300,
 
-	"damage_base": 10,
+	"damage_base": 5,
 	"damage_multiplier_by_thread": 0.1,
 	"damage_multiplier_by_weight": 0.1,
 	"damage_max": 100,
@@ -146,7 +146,7 @@ var player_defaults = {
 	"is_in_view" = true,
 	"is_transparent" = true,
 	"is_explored" = true,
-	"turns_to_move" = 5,
+	"turns_to_move" = 1,
 	"heal_per_turns" = 1,
 	"regen_per_turns" = 1,
 	"experience" = 0,

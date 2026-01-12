@@ -3,9 +3,8 @@ class_name MeleeWeapon
 
 var damage: int = 0
 var turns_to_use: int = 1
-var weight: int = 1
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	super._ready()
 	equippable = true
@@ -34,10 +33,27 @@ func drop() -> bool:
 	return super.drop()
 
 
+func copy(melee_weapon) -> void:
+	super.copy(melee_weapon)
+
+	damage = melee_weapon.damage
+	turns_to_use = melee_weapon.turns_to_use
+
+
+static func clone(melee_weapon) -> Variant:
+	var result_melee_weapon = MeleeWeapon.new()
+	result_melee_weapon.copy(melee_weapon)
+
+	return result_melee_weapon
+
+
 func get_info() -> String:
 	var info: String = super.get_info()
 
-	info += """\nDamage: %s""" % damage
+	info = Utils.append_info_line(info, {
+		"Damage": str(damage),
+		"Turns to Use": str(turns_to_use)
+	})
 
 	return info
 
@@ -58,4 +74,9 @@ func load(data: Dictionary) -> void:
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	result["damage"] = damage
+	result["turns_to_use"] = turns_to_use
+	result["type"] = "melee_weapon"
+
 	return result

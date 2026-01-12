@@ -32,8 +32,6 @@ var base_damage: int = 0
 
 var turns_to_move: int = 1
 
-var layer: Layer
-
 
 ## Callback called when the enters the field of view of the player.
 func _on_field_of_view_enter() -> void:
@@ -72,17 +70,38 @@ func kill() -> void:
 func get_info() -> String:
 	var info: String = super.get_info()
 
-	info += """\nHealth: %d/%d
-Mana: %d
-Damage: %d""" % [health, max_health, mana, get_melee_damage()]
+	info = Utils.append_info_line(info, {
+		"Health": "%s/%s" % [health, max_health],
+		"Mana": str(mana),
+		"Damage": str(get_melee_damage()),
+		"Turns to Move": str(turns_to_move)
+	})
 
 	return info
 
 
+func copy(entity) -> void:
+	super.copy(entity)
+
+	max_health = entity.max_health
+	health = entity.health
+
+	max_mana = entity.max_mana
+	mana = entity.mana
+
+	base_damage = entity.base_damage
+	turns_to_move = entity.turns_to_move
+
+
+static func clone(entity) -> Variant:
+	var result_entity = Entity.new()
+	result_entity.copy(entity)
+
+	return result_entity
+
 ################################################################################
 # Serialization
 ################################################################################
-
 func load(data: Dictionary) -> void:
 	super.load(data)
 	Utils.copy_from_dict_if_exists(

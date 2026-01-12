@@ -340,7 +340,6 @@ vertical_alignment = 1
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_behavior_recursive = 1
 current_tab = 0
 
 [node name="Prompts" type="VBoxContainer" parent="TabContainer"]

@@ -126,36 +126,37 @@ func _handle_use_range_weapon(event_key: InputEventKey) -> void:
 			var enemies_in_view = Globals.game.field_of_view.enemies_in_view
 			var close_enemy: Enemy = null
 			
-			if len(enemies_in_view) == 0:
-				return
-
 			for enemy in enemies_in_view:
 				if enemy != null and is_instance_valid(enemy):
 					if close_enemy == null or (close_enemy.grid_position - grid_position) > (enemy.grid_position - grid_position):
 						close_enemy = enemy
 			
-			if close_enemy != null and mana >= range_weapon.mana_cost:
-				set_mana(mana - range_weapon.mana_cost)
-				pass_turns(turns_to_move)
-				var is_enemy_dead: bool = close_enemy.get_hit(self, get_range_damage())
-				if is_enemy_dead:
-					Globals.game_ui.prompt_text(
-						"[color=#88A8C5]%s[/color] kills [color=#d37073]%s[/color] using a %s." % \
-						[tile_name, close_enemy.tile_name, range_weapon.tile_name]
-					)
+			if close_enemy != null:
+				if mana >= range_weapon.mana_cost:
+					set_mana(mana - range_weapon.mana_cost)
+					pass_turns(turns_to_move)
+					var is_enemy_dead: bool = close_enemy.get_hit(self, get_range_damage())
+					if is_enemy_dead:
+						Globals.game_ui.prompt_text(
+							"[color=#88A8C5]%s[/color] kills [color=#d37073]%s[/color] using a %s." % \
+							[tile_name, close_enemy.tile_name, range_weapon.tile_name]
+						)
+					else:
+						Globals.game_ui.prompt_text(
+							"[color=#88A8C5]%s[/color] hits [color=#d37073]%s[/color] using a %s. (Damage: %d; %s Life: %d)." % \
+							[
+								tile_name,
+								close_enemy.tile_name,
+								range_weapon.tile_name,
+								get_range_damage(),
+								close_enemy.tile_name,
+								close_enemy.health
+							]
+						)
 				else:
-					Globals.game_ui.prompt_text(
-						"[color=#88A8C5]%s[/color] hits [color=#d37073]%s[/color] using a %s. (Damage: %d; %s Life: %d)." % \
-						[
-							tile_name,
-							close_enemy.tile_name,
-							range_weapon.tile_name,
-							get_range_damage(),
-							close_enemy.tile_name,
-							close_enemy.health
-						]
-					)
-
+					Globals.game_ui.prompt_text("Not enough mana to use %s" % range_weapon.tile_name)
+			else:
+				Globals.game_ui.prompt_text("No enemy nearby")
 
 		else:
 			Globals.game_ui.prompt_text("You won't have a range weapon!")

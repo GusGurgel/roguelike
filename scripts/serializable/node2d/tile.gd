@@ -60,27 +60,40 @@ func _ready():
 	is_in_view = is_in_view
 
 
-## Copy information from a preset. [br]
-func load_properties_from_preset(preset_key: String) -> void:
-	var tile: Tile = Globals.tile_preset_list.get_tile_preset(preset_key)
+func copy(tile) -> void:
+	texture = tile.texture
+	has_collision = tile.has_collision
+	is_transparent = tile.is_transparent
+	self_modulate = tile.self_modulate
+	tile_name = tile.tile_name
+	tile_description = tile.tile_description
+	texture_name = tile.texture_name
 
-	self.texture = tile.texture
-	self.has_collision = tile.has_collision
-	self.is_transparent = tile.is_transparent
-	self.self_modulate = tile.self_modulate
-	self.tile_name = tile.tile_name
-	self.preset_name = preset_key
+
+## Copy information from a preset.
+static func from_tile_preset(preset_key: String) -> Tile:
+	var tile_preset: Tile = Globals.tile_preset_list.get_tile_preset(preset_key)
+	var result_tile = Tile.new()
+	result_tile.copy(tile_preset)
+	result_tile.preset_name = preset_key
+
+	return result_tile
 
 
 func get_info() -> String:
-	var info: String = """Name: %s
-Description: %s""" % [tile_name, tile_description]
+	var info: String 
+
+	info = Utils.append_info_line(info, {
+		"Name": tile_name,
+		"Description": tile_description
+	})
 
 	if Globals.verbose_tile_info:
-		info += "\nTexture Name: %s" % texture_name
-		info += "\nHas Collision: %s" % has_collision
-		if preset_name != "":
-			info += "\nPreset Name: %s" % preset_name
+		info = Utils.append_info_line(info, {
+			"Texture Name": texture_name,
+			"Has Collision": str(has_collision),
+			"Preset Name": preset_name
+		})
 
 	return info
 
@@ -164,7 +177,9 @@ func serialize() -> Dictionary:
 		result["is_in_view"] = self.is_in_view
 		result["is_transparent"] = self.is_transparent
 		result["tile_name"] = self.tile_name
-		result["color"] = self.tile_color_hex
+		result["tile_description"] = self.tile_description
+		if tile_color_hex != "":
+			result["color"] = self.tile_color_hex
 	
 	result["grid_position"] = {
 		x = self.grid_position.x,

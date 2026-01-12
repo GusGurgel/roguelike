@@ -19,20 +19,33 @@ func get_entity(pos: Vector2i) -> Entity:
 		return null
 
 
-func add_entity(entity: Entity) -> void:
-	var pos_key: String = Utils.vector2i_to_string(entity.grid_position)
+func add_entity(pos: Vector2i, entity: Entity, clone: bool = true) -> bool:
+	var entity_to_add: Entity
+
+	if clone:
+		if entity is Enemy:
+			entity_to_add = Enemy.clone(entity)
+		else:
+			entity_to_add = Entity.clone(entity)
+	else:
+		entity_to_add = entity
+	
+	entity_to_add.grid_position = pos
+
+	var pos_key: String = Utils.vector2i_to_string(entity_to_add.grid_position)
 
 	if entities.has(pos_key):
 		Utils.print_warning("An entity already exists in the position (%s)" % pos_key)
-		return
-	entities[pos_key] = entity
+		return false
+	entities[pos_key] = entity_to_add
 
-	if entity.get_parent():
-		entity.reparent(self)
+	if entity_to_add.get_parent():
+		entity_to_add.reparent(self)
 	else:
-		add_child(entity)
+		add_child(entity_to_add)
 
-	layer.astar_grid.set_point_solid(entity.grid_position, true)
+	layer.astar_grid.set_point_solid(entity_to_add.grid_position, true)
+	return true
 
 
 func alert_entities_new_turn(old_turn: int, new_turn: int) -> void:
@@ -67,9 +80,13 @@ func load(data: Dictionary) -> void:
 			
 
 		entity.load(entity_data)
-		add_entity(entity)
+		add_entity(entity.grid_position, entity, false)
 
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	for entity_key in entities:
+		result[entity_key] = entities[entity_key].serialize()
+
 	return result

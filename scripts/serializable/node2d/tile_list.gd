@@ -92,10 +92,8 @@ func set_tile_by_preset(
 
 		erase_tile(pos)
 	
-	var tile = Tile.new()
+	var tile: Tile = Tile.from_tile_preset(preset_key)
 	tile.grid_position = pos
-	tile.load_properties_from_preset(preset_key)
-
 	set_tile(tile)
 
 

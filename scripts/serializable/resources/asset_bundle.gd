@@ -190,6 +190,7 @@ func load_enemies(enemies_data: Array) -> void:
 		)
 
 		enemy.thread = enemy_data["thread"]
+		enemy.weight = enemy_data["weight"]
 		enemy.tile_description = enemy_data["tile_with_texture"]["description"]
 		enemy.tile_name = enemy_data["tile_with_texture"]["name"]
 		enemy.tile_color_hex = enemy_data["tile_with_texture"]["color"]
@@ -212,6 +213,14 @@ func generate_layer_list() -> void:
 			level.wall_tile_preset,
 			level.floor_tile_preset
 		)
+
+		var enemy_position = layer.rooms[0].position + Vector2i.ONE
+		var item_position_1 = layer.rooms[0].get_center() + Vector2i.ONE
+		var item_position_2 = layer.rooms[0].get_center() + (Vector2i.ONE * 2)
+
+		layer.entities.add_entity(enemy_position, enemies_assets[0])
+		layer.items.add_item(item_position_1, melee_weapons_assets[0])
+		layer.items.add_item(item_position_2, range_weapons_assets[0])
 
 		layers.layers[level.name] = layer
 		layers.layers_keys_ordered.append(level.name)

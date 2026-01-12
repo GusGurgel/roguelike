@@ -5,6 +5,7 @@ var usable: bool = false
 var equippable: bool = false
 var equipped: bool = false
 var rarity: int = 1
+var weight: int = 1
 
 signal on_unequip
 
@@ -33,9 +34,37 @@ func unequip() -> void:
 
 func drop() -> bool:
 	grid_position = Globals.game.player.grid_position
-	var item_was_drop = Globals.game.layers.get_current_layer().items.add_item(self)
+	var item_was_drop = Globals.game.layers.get_current_layer().items.add_item(grid_position, self, false)
 
 	return item_was_drop
+
+
+func copy(item) -> void:
+	super.copy(item)
+
+	usable = item.usable
+	equippable = item.equippable
+	equipped = item.equipped
+	rarity = item.rarity
+	weight = item.weight
+
+
+static func clone(item) -> Variant:
+	var result_item = Item.new()
+	result_item.copy(item)
+
+	return result_item
+
+
+func get_info() -> String:
+	var info: String = super.get_info()
+
+	info = Utils.append_info_line(info, {
+		"Rarity": str(rarity),
+		"Weight": str(weight)
+	})
+
+	return info
 
 ################################################################################
 # Serialization
@@ -49,11 +78,20 @@ func load(data: Dictionary) -> void:
 		[
 			"usable",
 			"equippable",
-			"equipped"
+			"equipped",
+			"rarity",
+			"weight"
 		]
 	)
 
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	result["usable"] = usable
+	result["equippable"] = equippable
+	result["equipped"] = equipped
+	result["rarity"] = rarity
+	result["weight"] = weight
+
 	return result

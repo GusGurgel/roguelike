@@ -4,7 +4,7 @@ class_name RangeWeapon
 var damage: int = 0
 var mana_cost: int = 0
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	super._ready()
 	equippable = true
@@ -33,11 +33,27 @@ func drop() -> bool:
 	return super.drop()
 
 
+func copy(range_weapon) -> void:
+	super.copy(range_weapon)
+
+	damage = range_weapon.damage
+	mana_cost = range_weapon.mana_cost
+
+
+static func clone(range_weapon) -> Variant:
+	var result_range_weapon = RangeWeapon.new()
+	result_range_weapon.copy(range_weapon)
+
+	return result_range_weapon
+
+
 func get_info() -> String:
 	var info: String = super.get_info()
 
-	info += """\nDamage: %s
-Mana Cost: %s """ % [damage, mana_cost]
+	info = Utils.append_info_line(info, {
+		"Damage": str(damage),
+		"Mana Cost": str(mana_cost)
+	})
 
 	return info
 
@@ -59,4 +75,9 @@ func load(data: Dictionary) -> void:
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	result["damage"] = damage
+	result["mana_cost"] = mana_cost
+	result["type"] = "range_weapon"
+
 	return result

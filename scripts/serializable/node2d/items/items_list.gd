@@ -15,18 +15,31 @@ func get_item(pos: Vector2i) -> Item:
 
 
 ## Return if the item was drop or not.
-func add_item(item: Item) -> bool:
-	var pos_key: String = Utils.vector2i_to_string(item.grid_position)
+func add_item(pos: Vector2i, item: Item, clone: bool = true) -> bool:
+	var item_to_add: Item
+
+	if clone:
+		if item is MeleeWeapon:
+			item_to_add = MeleeWeapon.clone(item)
+		elif item is RangeWeapon:
+			item_to_add = RangeWeapon.clone(item)
+		else:
+			item_to_add = Item.clone(item)
+	else:
+		item_to_add = item
+
+	item_to_add.grid_position = pos
+	var pos_key: String = Utils.vector2i_to_string(item_to_add.grid_position)
 
 	if items.has(pos_key):
 		Utils.print_warning("An item already exists in the position (%s)" % pos_key)
 		return false
-	items[pos_key] = item
+	items[pos_key] = item_to_add
 
-	if item.get_parent():
-		item.reparent(self)
+	if item_to_add.get_parent():
+		item_to_add.reparent(self)
 	else:
-		add_child(item)
+		add_child(item_to_add)
 
 	return true
 
@@ -68,9 +81,13 @@ func load(data: Dictionary) -> void:
 				item = Item.new()
 
 		item.load(item_data)
-		add_item(item)
+		add_item(item.grid_position, item, false)
 
 
 func serialize() -> Dictionary:
 	var result: Dictionary = super.serialize()
+
+	for item_key in items:
+		result[item_key] = items[item_key].serialize()
+
 	return result
