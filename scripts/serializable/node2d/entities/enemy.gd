@@ -14,10 +14,12 @@ var weight: int = 1:
 		thread = clampi(new_weight, 1, 10)
 
 func _init():
-	super._init(true)
+	super._init(true, 0)
 
 	has_collision = true
 	is_transparent = false
+	z_index = 1
+	z_as_relative = false
 
 func _ready():
 	super._ready()

@@ -11,7 +11,10 @@ signal on_unequip
 
 
 func _init():
-	super._init(true)
+	super._init(true, 0)
+
+	z_index = 1
+	z_as_relative = false
 
 
 func _ready():

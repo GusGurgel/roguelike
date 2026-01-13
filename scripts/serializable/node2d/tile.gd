@@ -4,12 +4,13 @@ class_name Tile
 signal tile_grid_position_change(old_pos: Vector2i, new_pos: Vector2i)
 
 
-func _init(add_background: bool = false):
+func _init(add_background: bool = false, background_z_index: int = -1):
 	if add_background:
 		var background = Sprite2D.new()
 		background.texture = Globals.blank_atlas_texture
-		background.self_modulate = Color(0, 0, 0, 0.5)
-		background.z_index = -1
+		background.self_modulate = Color(0, 0, 0, 0.4)
+		background.z_index = background_z_index
+		background.z_as_relative = false
 		background.centered = false
 		add_child(background)
 
